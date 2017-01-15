@@ -4,10 +4,10 @@ namespace Unicorn\UI\HTML;
 
 use Unicorn\UI\Base\TextElement;
 
-class BoldText extends TextElement
+class Span extends TextElement
 {
 	function __construct(string $text = null)
 	{
-		parent::__construct("b", $text);
+		parent::__construct("span", $text);
 	}
 }

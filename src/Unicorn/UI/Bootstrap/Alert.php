@@ -7,21 +7,19 @@ use Unicorn\UI\Base\HtmlElement;
 use Unicorn\UI\Base\ProtectedHtmlElement;
 use Unicorn\UI\HTML\BoldText;
 
-abstract class Alert extends ProtectedHtmlElement
+class Alert extends ProtectedHtmlElement
 {
-	function __construct(string $header, string $message)
+	function __construct(string $header, string $message, ContextualStyle $style)
 	{
 		parent::__construct("div");
 		$this->addClass("alert");
-		$this->addClass($this->alertType());
+		$this->addClass("alert-" . $style);
 		$this->setRole("alert");
 		
 		$this->addChild(new BoldText($header));
 		
 		$this->addText(" " . $message);
 	}
-	
-	abstract protected function alertType(): string;
 	
 	public function dismissable()
 	{

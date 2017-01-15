@@ -1,16 +1,13 @@
 <?php
 
 namespace Unicorn\UI\HTML;
-use Unicorn\UI\Base\HtmlElement;
 
-class Paragraph extends HtmlElement
+use Unicorn\UI\Base\TextElement;
+
+class Paragraph extends TextElement
 {
 	function __construct(string $text = null)
 	{
-		parent::__construct("p");
-		
-		if($text !== null) {
-			$this->addText($text);
-		}
+		parent::__construct("p", $text);
 	}
 }

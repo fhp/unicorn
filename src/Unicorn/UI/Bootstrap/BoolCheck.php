@@ -4,7 +4,6 @@ namespace Unicorn\UI\Bootstrap;
 
 use Unicorn\UI\Bootstrap\Icons\TrueIcon;
 use Unicorn\UI\Bootstrap\Icons\FalseIcon;
-use Unicorn\UI\Base\HtmlElement;
 use Unicorn\UI\Base\ProtectedWidgetList;
 
 class BoolCheck extends ProtectedWidgetList

@@ -1,17 +1,15 @@
 <?php
 
 namespace Unicorn\UI\Bootstrap;
-use Unicorn\UI\Base\ProtectedHtmlElement;
 
-class BadgeCounter extends ProtectedHtmlElement
+class BadgeCounter extends Badge
 {
 	function __construct(int $count)
 	{
-		parent::__construct("span");
-		$this->addClass("badge");
+		parent::__construct((string)$count);
+		
 		if($count == 0) {
 			$this->addClass("badge-success");
 		}
-		$this->addText($count);
 	}
 }
