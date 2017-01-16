@@ -2,7 +2,7 @@
 
 namespace Unicorn\UI\Base;
 
-class Text extends Widget
+class Text implements IWidget
 {
 	private $text;
 	

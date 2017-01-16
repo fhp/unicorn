@@ -2,12 +2,12 @@
 
 namespace Unicorn\UI\Base;
 
-class Stub extends Widget
+class Stub implements IWidget
 {
-	/** @var Widget */
+	/** @var IWidget */
 	private $widget = null;
 	
-	public function setWidget(Widget $widget): void
+	public function setWidget(IWidget $widget): void
 	{
 		$this->widget = $widget;
 	}
@@ -17,7 +17,7 @@ class Stub extends Widget
 		return $this->widget !== null;
 	}
 	
-	public function getWidget(): ?Widget
+	public function getWidget(): ?IWidget
 	{
 		return $this->widget;
 	}

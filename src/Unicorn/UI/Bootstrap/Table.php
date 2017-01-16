@@ -2,23 +2,14 @@
 
 namespace Unicorn\UI\Bootstrap;
 
-use Unicorn\UI\Base\HtmlElement;
-use Unicorn\UI\Base\Stub;
+use Unicorn\UI\HTML\Table as HtmlTable;
 
-class Table extends HtmlElement
+class Table extends HtmlTable
 {
-	private $thead;
-	private $tbody;
-	private $tfoot;
-	
-	function __construct()
+	public function __construct()
 	{
-		parent::__construct("table");
+		parent::__construct();
 		$this->addClass("table");
-		
-		$this->thead = new Stub();
-		$this->tbody = new Stub();
-		$this->tfoot = new Stub();
 	}
 	
 	public function striped(): void
@@ -39,20 +30,5 @@ class Table extends HtmlElement
 	public function condensed(): void
 	{
 		$this->addClass("table-condensed");
-	}
-	
-	public function getHeader(): HtmlElement
-	{
-		if(!$this->thead->hasWidget()) {
-			$header = new HtmlElement("thead");
-			$this->thead->setWidget($header);
-		}
-		
-		return $this->thead->getWidget();
-	}
-	
-	public function getBody(): HtmlElement
-	{
-		
 	}
 }

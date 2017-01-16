@@ -3,10 +3,11 @@
 namespace Unicorn\UI\Bootstrap;
 
 use Unicorn\UI\Base\HtmlElement;
+use Unicorn\UI\Base\HtmlWidget;
 use Unicorn\UI\Base\ProtectedHtmlElement;
 use Unicorn\UI\HTML\Link;
 
-class Breadcrumbs extends ProtectedHtmlElement
+class Breadcrumbs extends HtmlWidget
 {
 	private $activePage;
 	private $pages = array();

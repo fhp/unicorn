@@ -3,11 +3,10 @@
 namespace Unicorn\UI\Bootstrap;
 
 use Unicorn\UI\Base\HtmlElement;
-use Unicorn\UI\Base\ProtectedHtmlElement;
+use Unicorn\UI\Base\HtmlWidget;
 use Unicorn\UI\Base\Stub;
-use Unicorn\UI\Base\Widget;
 
-class Panel extends ProtectedHtmlElement
+class Panel extends HtmlWidget
 {
 	private $header;
 	private $body;
@@ -61,18 +60,15 @@ class Panel extends ProtectedHtmlElement
 		return $this->body->getWidget();
 	}
 	
-	public function getTable(): HtmlElement
+	public function getTable(): Table
 	{
 		if(!$this->table->hasWidget()) {
-			$header = new HtmlElement("table");
-			$header->addClass("table");
-			
-			$this->table->setWidget($header);
+			$this->table->setWidget(new Table());
 		}
 		return $this->table->getWidget();
 	}
 	
-	public function setTable(Widget $table): void
+	public function setTable(Table $table): void
 	{
 		$this->table->setWidget($table);
 	}

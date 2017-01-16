@@ -2,28 +2,32 @@
 
 namespace Unicorn\UI\Bootstrap;
 
-use Unicorn\UI\Base\HTML;
+use Unicorn\UI\Base\HtmlBlob;
 use Unicorn\UI\Base\HtmlElement;
-use Unicorn\UI\Base\ProtectedHtmlElement;
+use Unicorn\UI\Base\ChildlessHtmlWidget;
 use Unicorn\UI\HTML\BoldText;
 
-class Alert extends ProtectedHtmlElement
+class Alert extends ChildlessHtmlWidget
 {
 	function __construct(string $header, string $message, ContextualStyle $style)
 	{
 		parent::__construct("div");
-		$this->addClass("alert");
-		$this->addClass("alert-" . $style);
-		$this->setRole("alert");
+		$alert = $this->getElement();
 		
-		$this->addChild(new BoldText($header));
+		$alert->addClass("alert");
+		$alert->addClass("alert-" . $style);
+		$alert->setRole("alert");
 		
-		$this->addText(" " . $message);
+		$alert->addChild(new BoldText($header));
+		
+		$alert->addText(" " . $message);
 	}
 	
 	public function dismissable()
 	{
-		$this->addClass("alert-dismissible");
+		$alert = $this->getElement();
+		
+		$alert->addClass("alert-dismissible");
 		
 		$closeButton = new Button();
 		$closeButton->addClass("close");
@@ -32,11 +36,10 @@ class Alert extends ProtectedHtmlElement
 		
 		$span = new HtmlElement("span");
 		$span->setAria("hidden", "true");
-		$span->addChild(new HTML("&times;"));
+		$span->addChild(new HtmlBlob("&times;"));
 		
 		$closeButton->addChild($span);
 		
-		$this->prependChild($closeButton);
+		$alert->prependChild($closeButton);
 	}
-	
 }

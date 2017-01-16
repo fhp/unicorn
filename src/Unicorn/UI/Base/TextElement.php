@@ -20,7 +20,7 @@ abstract class TextElement extends HtmlElement
 		$this->addClass("text-" . $style);
 	}
 	
-	public function setContextualStyleBackground(ContextualStyle $style): void
+	public function setContextualBackgroundStyle(ContextualStyle $style): void
 	{
 		$this->addClass("bg-" . $style);
 	}

@@ -4,30 +4,30 @@ namespace Unicorn\UI\Base;
 
 trait ChildrenTrait
 {
-	/** @var Widget[] */
+	/** @var IWidget[] */
 	private $children = array();
 	
-	protected function addChild(Widget $child): void
+	public function addChild(IWidget $child): void
 	{
 		$this->children[] = $child;
 	}
-	
-	protected function prependChild(Widget $child): void
+
+	public function prependChild(IWidget $child): void
 	{
 		$this->children = array_merge(array($child), $this->children);
 	}
 	
-	protected function addText(string $text): void
+	public function addText(string $text): void
 	{
 		$this->addChild(new Text($text));
 	}
 	
-	protected function prependText(string $text): void
+	public function prependText(string $text): void
 	{
 		$this->prependChild(new Text($text));
 	}
 	
-	protected function removeChildren(): void
+	public function removeChildren(): void
 	{
 		$this->children = array();
 	}

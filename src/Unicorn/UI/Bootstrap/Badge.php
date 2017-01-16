@@ -2,17 +2,15 @@
 
 namespace Unicorn\UI\Bootstrap;
 
-use Unicorn\UI\Base\HtmlElement;
+use Unicorn\UI\Base\ChildlessHtmlWidget;
 
-class Badge extends HtmlElement
+class Badge extends ChildlessHtmlWidget
 {
-	function __construct(string $content = null)
+	function __construct(string $content)
 	{
 		parent::__construct("span");
 		$this->addClass("badge");
 		
-		if($content !== null) {
-			$this->addText($content);
-		}
+		$this->getElement()->addText($content);
 	}
 }

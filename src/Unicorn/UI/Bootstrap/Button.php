@@ -10,5 +10,13 @@ class Button extends HtmlElement
 	{
 		parent::__construct("button");
 		$this->setProperty("type", "button");
+		
+		if($icon !== null) {
+			$this->addChild($icon);
+		}
+		
+		if($text !== null) {
+			$this->addText($text);
+		}
 	}
 }

@@ -2,125 +2,289 @@
 
 namespace Unicorn\UI\Base;
 
-class HtmlElement extends ProtectedHtmlElement
+class HtmlElement extends WidgetList implements IHtmlElement
 {
+	private $tag;
+	private $classes = array();
+	private $properties = array();
+	private $closeTag = true;
+	
+	public function __construct(string $tag)
+	{
+		$this->tag = $tag;
+	}
+	
 	public function noCloseTag(): void
 	{
-		parent::noCloseTag();
+		$this->closeTag = false;
 	}
 	
 	public function hasClass(string $class): bool
 	{
-		return parent::hasClass($class);
+		return in_array($class, $this->classes);
 	}
 	
 	public function addClass(string $class): void
 	{
-		parent::addClass($class);
+		if(!$this->hasClass($class)) {
+			$this->classes[] = $class;
+		}
 	}
 	
 	public function removeClass(string $class): void
 	{
-		parent::removeClass($class);
+		for ($i = 0; $i < count($this->classes); $i++) {
+			if($this->classes[$i] == $class) {
+				unset($this->classes[$i]);
+			}
+		}
 	}
 	
 	public function getProperty(string $name): ?string
 	{
-		return parent::getProperty($name);
+		for($i = 0; $i < count($this->properties); $i++) {
+			if($this->properties[$i]["name"] == $name) {
+				return $this->properties[$i]["value"];
+			}
+		}
+		return null;
 	}
 	
 	public function setProperty(string $name, string $value): void
 	{
-		parent::setProperty($name, $value);
+		for($i = 0; $i < count($this->properties); $i++) {
+			if($this->properties[$i]["name"] == $name) {
+				$this->properties[$i]["value"] = $value;
+				return;
+			}
+		}
+		$this->properties[] = array("name"=>$name, "value"=>$value);
 	}
 	
 	public function removeProperty(string $name): void
 	{
-		parent::removeProperty($name);
+		for($i = 0; $i < count($this->properties); $i++) {
+			if($this->properties[$i]["name"] == $name) {
+				unset($this->properties[$i]);
+			}
+		}
 	}
 	
 	public function getID(): ?string
 	{
-		return parent::getID();
+		return $this->getProperty("id");
 	}
 	
 	public function setID(string $id): void
 	{
-		parent::setID($id);
+		$this->setProperty("id", $id);
 	}
 	
 	public function removeID(): void
 	{
-		parent::removeID();
+		$this->removeProperty("id");
 	}
 	
 	public function getData(string $name): ?string
 	{
-		return parent::getData($name);
+		return $this->getProperty("data-" . $name);
 	}
 	
 	public function setData(string $name, string $value): void
 	{
-		parent::setData($name, $value);
+		$this->setProperty("data-" . $name, $value);
 	}
 	
 	public function removeData(string $name): void
 	{
-		parent::removeData($name);
+		$this->removeProperty("data-" . $name);
 	}
 	
 	public function getRole(): ?string
 	{
-		return parent::getRole();
+		return $this->getProperty("role");
 	}
 	
 	public function setRole(string $role): void
 	{
-		parent::setRole($role);
+		$this->setProperty("role", $role);
 	}
 	
 	public function removeRole(): void
 	{
-		parent::removeRole();
+		$this->removeProperty("role");
 	}
 	
 	public function getAria(string $name): ?string
 	{
-		return parent::getAria($name);
+		return $this->getProperty("aria-" . $name);
 	}
 	
 	public function setAria($name, $value): void
 	{
-		parent::setAria($name, $value);
+		$this->setProperty("aria-" . $name, $value);
 	}
 	
 	public function removeAria(string $name): void
 	{
-		parent::removeAria($name);
+		$this->removeProperty("aria-" . $name);
 	}
 	
-	public function addChild(Widget $child): void
+	public function enableContentEditable(): void
 	{
-		parent::addChild($child);
+		$this->setProperty("contenteditable", "true");
 	}
 	
-	public function prependChild(Widget $child): void
+	public function disableContentEditable(): void
 	{
-		parent::prependChild($child);
+		$this->setProperty("contenteditable", "false");
 	}
 	
-	public function addText(string $text): void
+	public function enableSpellcheck(): void
 	{
-		parent::addText($text);
+		$this->setProperty("spellcheck", "true");
 	}
 	
-	public function prependText(string $text): void
+	public function disableSpellcheck(): void
 	{
-		parent::prependText($text);
+		$this->setProperty("spellcheck", "false");
 	}
 	
-	public function removeChildren(): void
+	public function enableDraggable(): void
 	{
-		parent::removeChildren();
+		$this->setProperty("draggable", "true");
+	}
+	
+	public function disableDraggable(): void
+	{
+		$this->setProperty("draggable", "false");
+	}
+	
+	public function getTabindex(): ?int
+	{
+		return $this->getProperty("tabindex");
+	}
+	
+	public function setTabindex(int $tabindex): void
+	{
+		$this->setProperty("tabindex", $tabindex);
+	}
+	
+	public function removeTabindex(): void
+	{
+		$this->removeProperty("tabindex");
+	}
+	
+	public function getTitle(): ?string
+	{
+		return $this->getProperty("title");
+	}
+	
+	public function setTitle(string $title): void
+	{
+		$this->setProperty("title", $title);
+	}
+	
+	public function removeTitle(): void
+	{
+		$this->removeProperty("title");
+	}
+	
+	public function getLanguage(): ?string
+	{
+		return $this->getProperty("language");
+	}
+	
+	public function setLanguage(string $language): void
+	{
+		$this->setProperty("language", $language);
+	}
+	
+	public function removeLanguage(): void
+	{
+		$this->removeProperty("language");
+	}
+	
+	public function getTextDirection(): ?string
+	{
+		return $this->getProperty("dir");
+	}
+	
+	public function setTextDirection(string $textDirection): void
+	{
+		$this->setProperty("dir", $textDirection);
+	}
+	
+	public function removeTextDirection(): void
+	{
+		$this->removeProperty("dir");
+	}
+	
+	public function getAccesskey(): ?string
+	{
+		return $this->getProperty("accesskey");
+	}
+	
+	public function setAccesskey(string $accesskey): void
+	{
+		$this->setProperty("accesskey", $accesskey);
+	}
+	
+	public function removeAccesskey(): void
+	{
+		$this->removeProperty("accesskey");
+	}
+	
+	public function getJavascriptEvent(string $event): ?string
+	{
+		return $this->getProperty("on" . $event);
+	}
+	
+	public function setJavascriptEvent(string $event, string $javascript): void
+	{
+		$this->setProperty("on" . $event, $javascript);
+	}
+	
+	public function removeJavascriptEvent(string $event): void
+	{
+		$this->removeProperty("on" . $event);
+	}
+	
+	protected function renderProperties(): string
+	{
+		$html = "";
+		if(count($this->classes) > 0) {
+			$html = " class=\"" . implode(" ", $this->classes) . "\"";
+		}
+		foreach ($this->properties as $property) {
+			$html .= " " . $property["name"] . "=\"" . $property["value"] . "\"";
+		}
+		return $html;
+	}
+	
+	protected function renderOpenTag(): string
+	{
+		$html = "<{$this->tag}";
+		$html .= $this->renderProperties();
+		$html .= ">";
+		return $html;
+	}
+	
+	protected function renderCloseTag(): string
+	{
+		if($this->closeTag) {
+			return "</{$this->tag}>";
+		} else {
+			return "";
+		}
+	}
+	
+	public function render(): string
+	{
+		$html = $this->renderOpenTag();
+		$html .= $this->renderChildren();
+		$html .= $this->renderCloseTag();
+		$html .= "\n";
+		return $html;
 	}
 }

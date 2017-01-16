@@ -3,9 +3,10 @@
 namespace Unicorn\UI\Bootstrap;
 
 use Unicorn\UI\Base\HtmlElement;
-use Unicorn\UI\Base\ProtectedWidgetList;
+use Unicorn\UI\Base\ListWidget;
+use Unicorn\UI\Base\ProtectedIWidgetList;
 
-abstract class Icon extends ProtectedWidgetList
+abstract class Icon extends ListWidget
 {
 	/** @var HtmlElement */
 	private $icon;
@@ -15,6 +16,8 @@ abstract class Icon extends ProtectedWidgetList
 	
 	public function __construct(string $color = null, string $ariaMeaning = null)
 	{
+		parent::__construct();
+		
 		$this->icon = new HtmlElement("span");
 		$this->icon->addClass("glyphicon");
 		$this->icon->addClass("glyphicon-" . $this->icon());

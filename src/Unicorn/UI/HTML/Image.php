@@ -1,13 +1,14 @@
 <?php
 
 namespace Unicorn\UI\HTML;
-use Unicorn\UI\Base\ChildlessHtmlElement;
+use Unicorn\UI\Base\ChildlessHtmlWidget;
 
-class Image extends ChildlessHtmlElement
+class Image extends ChildlessHtmlWidget
 {
 	function __construct(string $src)
 	{
 		parent::__construct("img");
-		$this->setProperty("src", $src);
+		$this->getElement()->noCloseTag();
+		$this->getElement()->setProperty("src", $src);
 	}
 }

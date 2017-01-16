@@ -2,9 +2,9 @@
 
 namespace Unicorn\UI\HTML;
 
-use Unicorn\UI\Base\HtmlElement;
+use Unicorn\UI\Base\TextElement;
 
-class Link extends HtmlElement
+class Link extends TextElement
 {
 	public function __construct(string $url)
 	{
