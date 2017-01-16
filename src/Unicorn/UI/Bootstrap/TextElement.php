@@ -1,8 +1,8 @@
 <?php
 
-namespace Unicorn\UI\Base;
+namespace Unicorn\UI\Bootstrap;
 
-use Unicorn\UI\Bootstrap\ContextualStyle;
+use Unicorn\UI\Base\HtmlElement;
 
 abstract class TextElement extends HtmlElement
 {

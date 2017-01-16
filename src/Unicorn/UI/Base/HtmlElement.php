@@ -282,7 +282,7 @@ class HtmlElement extends WidgetList implements IHtmlElement
 	public function render(): string
 	{
 		$html = $this->renderOpenTag();
-		$html .= $this->renderChildren();
+		$html .= parent::render();
 		$html .= $this->renderCloseTag();
 		$html .= "\n";
 		return $html;

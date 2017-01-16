@@ -2,7 +2,7 @@
 
 namespace Unicorn\UI\HTML;
 
-use Unicorn\UI\Base\TextElement;
+use Unicorn\UI\Bootstrap\TextElement;
 
 class Link extends TextElement
 {

@@ -3,6 +3,7 @@
 namespace Unicorn\UI\HTML;
 
 use Unicorn\UI\Base\ChildlessHtmlWidget;
+use Unicorn\UI\Bootstrap\ContextualStyle;
 
 class TableRow extends ChildlessHtmlWidget
 {
@@ -14,6 +15,11 @@ class TableRow extends ChildlessHtmlWidget
 	public function addCell(TableCell $cell): void
 	{
 		$this->getElement()->addChild($cell);
+	}
+	
+	public function setStyle(ContextualStyle $style): void
+	{
+		$this->getElement()->addClass($style);
 	}
 	
 	static public function headerFromArray(iterable $data): TableRow

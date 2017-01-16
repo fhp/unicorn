@@ -24,7 +24,7 @@ class Table extends HtmlWidget
 		$this->addChild($this->tfoot);
 	}
 	
-	public function getHeader(): TablePart
+	public function getHeader(): TableHeader
 	{
 		if(!$this->thead->hasWidget()) {
 			$header = new TableHeader();
@@ -34,7 +34,7 @@ class Table extends HtmlWidget
 		return $this->thead->getWidget();
 	}
 	
-	public function getBody(): TablePart
+	public function getBody(): TableBody
 	{
 		if(!$this->tbody->hasWidget()) {
 			$body = new TableBody();
@@ -44,7 +44,7 @@ class Table extends HtmlWidget
 		return $this->tbody->getWidget();
 	}
 	
-	public function getFooter(): TablePart
+	public function getFooter(): TableFooter
 	{
 		if(!$this->tfoot->hasWidget()) {
 			$footer = new TableFooter();
@@ -53,5 +53,10 @@ class Table extends HtmlWidget
 		
 		return $this->tfoot->getWidget();
 	}
+	
+	public function addColumn(string $header, iterable $data): void
+	{
+		$this->getHeader()->addColumn($header);
+		$this->getBody()->addColumn($data);
+	}
 }
-
