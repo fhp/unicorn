@@ -1,5 +1,5 @@
 {
-  "name": "unicorn/UI",
+  "name": "unicorn/ui",
   "autoload": {
     "psr-4": {"Unicorn\\UI\\": "src/Unicorn/UI/"}
   }
