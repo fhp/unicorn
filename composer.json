@@ -1,0 +1,6 @@
+{
+  "name": "unicorn/UI",
+  "autoload": {
+    "psr-4": {"Unicorn\\UI\\": "src/Unicorn/UI/"}
+  }
+}
