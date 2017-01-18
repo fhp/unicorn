@@ -3,9 +3,9 @@
 namespace Unicorn\UI\Bootstrap;
 
 use Unicorn\UI\Base\HtmlElement;
-use Unicorn\UI\Base\ContainerWidget;
+use Unicorn\UI\Base\ListWidget;
 
-abstract class Icon extends ContainerWidget
+abstract class Icon extends ListWidget
 {
 	/** @var HtmlElement */
 	private $icon;
@@ -28,7 +28,7 @@ abstract class Icon extends ContainerWidget
 			$this->setColor($this->color());
 		}
 		
-		$this->addChild($this->icon);
+		$this->getContainer()->addChild($this->icon);
 		
 		if($ariaMeaning !== null) {
 			$this->setAriaMeaning($ariaMeaning);
@@ -57,7 +57,7 @@ abstract class Icon extends ContainerWidget
 		}
 		$this->airaSpan->addText($meaning);
 		
-		$this->addChild($this->airaSpan);
+		$this->getContainer()->addChild($this->airaSpan);
 	}
 	
 	public function render(): string

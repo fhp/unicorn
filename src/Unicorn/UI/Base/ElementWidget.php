@@ -2,11 +2,12 @@
 
 namespace Unicorn\UI\Base;
 
+/**
+ * @method Element|HtmlElement getElement()
+ */
 abstract class ElementWidget implements Element
 {
-	use ElementWrapper {
-		ElementWrapper::getElement as trait_getElement;
-	}
+	use ElementWrapper;
 	
 	/**
 	 * ElementWidget constructor.
@@ -23,15 +24,6 @@ abstract class ElementWidget implements Element
 		} else {
 			throw new \InvalidArgumentException("Invalid argument \$element to ElementWidget. Must be an instance of Element, a string (html tag name), or null.");
 		}
-	}
-	
-	/**
-	 * @return Element|HtmlElement
-	 * @throws \Unicorn\UI\Exceptions\NoElementSetException
-	 */
-	public function getElement(): Element
-	{
-		return $this->trait_getElement();
 	}
 	
 	public function render(): string
