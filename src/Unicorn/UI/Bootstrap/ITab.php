@@ -2,12 +2,11 @@
 
 namespace Unicorn\UI\Bootstrap;
 
-use Unicorn\UI\Base\IWidgetList;
-use Unicorn\UI\HTML\Link;
+use Unicorn\UI\Base\Container;
 
 interface ITab
 {
-	public function getContentPane(): IWidgetList;
+	public function getContentPane(): Container;
 	
 	public function getNavigationItem(): NavigationItem;
 	

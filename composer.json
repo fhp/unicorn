@@ -1,17 +1,19 @@
 {
-  "name": "unicorn/ui",
+  "name": "treva/unicorn",
   "authors": [
     {
       "name": "Stef Louwers",
       "email": "stef@steflouwers.nl",
       "homepage": "http://steflouwers.nl",
       "role": "developer"
+    },
+    {
+      "name": "Ruud Koolen",
+      "email": "ruud@ruudkoolen.nl",
+      "role": "developer"
     }
   ],
   "autoload": {
     "psr-4": {"Unicorn\\UI\\": "src/Unicorn/UI/"}
-  },
-  "require": {
-    "twbs/bootstrap": "3.*"
   }
 }

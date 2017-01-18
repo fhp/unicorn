@@ -3,10 +3,12 @@
 namespace Unicorn\UI\Bootstrap;
 
 use Unicorn\UI\Base\HtmlElement;
-use Unicorn\UI\Base\HtmlWidget;
+use Unicorn\UI\Base\ElementWidget;
 use Unicorn\UI\Base\Stub;
+use Unicorn\UI\Base\Widget;
+use Unicorn\UI\Base\WidgetContainer;
 
-class Panel extends HtmlWidget
+class Panel extends ElementWidget implements WidgetContainer
 {
 	private $header;
 	private $body;
@@ -24,18 +26,15 @@ class Panel extends HtmlWidget
 		$this->addClass("panel");
 		$this->addClass("panel-" . $type);
 		
-		$this->body = new HtmlElement("div");
-		$this->body->addClass("panel-body");
-		
 		$this->header = new Stub();
 		$this->body = new Stub();
 		$this->table = new Stub();
 		$this->footer = new Stub();
 		
-		$this->addChild($this->header);
-		$this->addChild($this->body);
-		$this->addChild($this->table);
-		$this->addChild($this->footer);
+		$this->getElement()->addChild($this->header);
+		$this->getElement()->addChild($this->body);
+		$this->getElement()->addChild($this->table);
+		$this->getElement()->addChild($this->footer);
 	}
 	
 	public function getHeader(): HtmlElement
@@ -82,5 +81,30 @@ class Panel extends HtmlWidget
 			$this->footer->setWidget($header);
 		}
 		return $this->footer->getWidget();
+	}
+	
+	public function addChild(Widget $child): void
+	{
+		$this->getBody()->addChild($child);
+	}
+	
+	public function prependChild(Widget $child): void
+	{
+		$this->getBody()->prependChild($child);
+	}
+	
+	public function addText(string $text): void
+	{
+		$this->getBody()->addText($text);
+	}
+	
+	public function prependText(string $text): void
+	{
+		$this->getBody()->prependText($text);
+	}
+	
+	public function removeChildren(): void
+	{
+		$this->getBody()->removeChildren();
 	}
 }

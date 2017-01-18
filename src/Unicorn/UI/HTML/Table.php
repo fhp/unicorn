@@ -2,10 +2,10 @@
 
 namespace Unicorn\UI\HTML;
 
-use Unicorn\UI\Base\HtmlWidget;
+use Unicorn\UI\Base\ElementWidget;
 use Unicorn\UI\Base\Stub;
 
-class Table extends HtmlWidget
+class Table extends ElementWidget
 {
 	private $thead;
 	private $tbody;
@@ -19,16 +19,15 @@ class Table extends HtmlWidget
 		$this->tbody = new Stub();
 		$this->tfoot = new Stub();
 		
-		$this->addChild($this->thead);
-		$this->addChild($this->tbody);
-		$this->addChild($this->tfoot);
+		$this->getElement()->addChild($this->thead);
+		$this->getElement()->addChild($this->tbody);
+		$this->getElement()->addChild($this->tfoot);
 	}
 	
 	public function getHeader(): TableHeader
 	{
 		if(!$this->thead->hasWidget()) {
-			$header = new TableHeader();
-			$this->thead->setWidget($header);
+			$this->thead->setWidget(new TableHeader());
 		}
 		
 		return $this->thead->getWidget();
@@ -37,8 +36,7 @@ class Table extends HtmlWidget
 	public function getBody(): TableBody
 	{
 		if(!$this->tbody->hasWidget()) {
-			$body = new TableBody();
-			$this->tbody->setWidget($body);
+			$this->tbody->setWidget(new TableBody());
 		}
 		
 		return $this->tbody->getWidget();
@@ -47,8 +45,7 @@ class Table extends HtmlWidget
 	public function getFooter(): TableFooter
 	{
 		if(!$this->tfoot->hasWidget()) {
-			$footer = new TableFooter();
-			$this->tfoot->setWidget($footer);
+			$this->tfoot->setWidget(new TableFooter());
 		}
 		
 		return $this->tfoot->getWidget();

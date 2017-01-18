@@ -4,10 +4,10 @@ namespace Unicorn\UI\Bootstrap;
 
 use Unicorn\UI\Base\HtmlBlob;
 use Unicorn\UI\Base\HtmlElement;
-use Unicorn\UI\Base\ChildlessHtmlWidget;
+use Unicorn\UI\Base\ElementWidget;
 use Unicorn\UI\HTML\BoldText;
 
-class Alert extends ChildlessHtmlWidget
+class Alert extends ElementWidget
 {
 	function __construct(string $header, string $message, ContextualStyle $style)
 	{

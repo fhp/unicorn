@@ -2,10 +2,10 @@
 
 namespace Unicorn\UI\HTML;
 
-use Unicorn\UI\Base\ChildlessHtmlWidget;
+use Unicorn\UI\Base\ElementWidget;
 use Unicorn\UI\Bootstrap\ContextualStyle;
 
-class TableRow extends ChildlessHtmlWidget
+class TableRow extends ElementWidget
 {
 	function __construct()
 	{

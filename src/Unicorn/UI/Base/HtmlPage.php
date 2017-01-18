@@ -5,7 +5,7 @@ namespace Unicorn\UI\Base;
 use Unicorn\UI\HTML\JavascriptSource;
 use Unicorn\UI\HTML\StylesheetSource;
 
-abstract class HtmlPage implements IWidgetList
+abstract class HtmlPage implements WidgetContainer
 {
 	private $html;
 	private $head;
@@ -70,12 +70,12 @@ abstract class HtmlPage implements IWidgetList
 		$this->getHead()->addChild(new StylesheetSource($styleSrc));
 	}
 	
-	public function addChild(IWidget $child): void
+	public function addChild(Widget $child): void
 	{
 		$this->getContentPane()->addChild($child);
 	}
 	
-	public function prependChild(IWidget $child): void
+	public function prependChild(Widget $child): void
 	{
 		$this->getContentPane()->prependChild($child);
 	}

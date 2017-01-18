@@ -1,10 +1,10 @@
 <?php
 namespace Unicorn\UI\Bootstrap;
 
-use Unicorn\UI\Base\HtmlWidget;
+use Unicorn\UI\Base\PanelWidget;
 use Unicorn\UI\HTML\Link;
 
-class NavigationItem extends HtmlWidget
+class NavigationItem extends PanelWidget
 {
 	public function __construct(Link $link)
 	{

@@ -2,12 +2,11 @@
 
 namespace Unicorn\UI\Bootstrap;
 
+use Unicorn\UI\Base\ElementWidget;
 use Unicorn\UI\Base\HtmlElement;
-use Unicorn\UI\Base\HtmlWidget;
-use Unicorn\UI\Base\ProtectedHtmlElement;
 use Unicorn\UI\HTML\Link;
 
-class Breadcrumbs extends HtmlWidget
+class Breadcrumbs extends ElementWidget
 {
 	private $activePage;
 	private $pages = array();
@@ -43,14 +42,14 @@ class Breadcrumbs extends HtmlWidget
 			$li = new HtmlElement("li");
 			$li->addChild($link);
 			
-			$this->addChild($li);
+			$this->getElement()->addChild($li);
 		}
 		
 		$li = new HtmlElement("li");
 		$li->addClass("active");
 		$li->addText($this->activePage);
 		
-		$this->addChild($li);
+		$this->getElement()->addChild($li);
 	}
 	
 	public function render(): string

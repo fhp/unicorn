@@ -2,17 +2,17 @@
 
 namespace Unicorn\UI\Base;
 
-class WidgetList implements IWidgetList
+class Container implements WidgetContainer, Widget
 {
-	/** @var IWidget[] */
+	/** @var Widget[] */
 	private $children = array();
 	
-	public function addChild(IWidget $child): void
+	public function addChild(Widget $child): void
 	{
 		$this->children[] = $child;
 	}
 	
-	public function prependChild(IWidget $child): void
+	public function prependChild(Widget $child): void
 	{
 		$this->children = array_merge(array($child), $this->children);
 	}

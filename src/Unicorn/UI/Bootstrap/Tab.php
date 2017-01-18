@@ -2,12 +2,12 @@
 
 namespace Unicorn\UI\Bootstrap;
 
-use Unicorn\UI\Base\HtmlWidget;
-use Unicorn\UI\Base\IWidgetList;
+use Unicorn\UI\Base\PanelWidget;
+use Unicorn\UI\Base\Container;
 use Unicorn\UI\HTML\Header;
 use Unicorn\UI\HTML\Link;
 
-class Tab extends HtmlWidget implements ITab
+class Tab extends PanelWidget implements ITab
 {
 	private $name;
 	private $navItem;
@@ -15,6 +15,7 @@ class Tab extends HtmlWidget implements ITab
 	function __construct(string $id, string $name, bool $header = true)
 	{
 		parent::__construct("div");
+		$this->setContainer($this->getElement());
 		$content = $this->getElement();
 		$content->setRole("tabpanel");
 		$content->addClass("tab-pane");
@@ -34,9 +35,9 @@ class Tab extends HtmlWidget implements ITab
 		$this->navItem = new NavigationItem($link);
 	}
 	
-	public function getContentPane(): IWidgetList
+	public function getContentPane(): Container
 	{
-		return $this->getElement();
+		return $this->getContainer();
 	}
 	
 	public function getNavigationItem(): NavigationItem

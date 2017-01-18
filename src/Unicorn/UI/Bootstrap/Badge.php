@@ -2,9 +2,9 @@
 
 namespace Unicorn\UI\Bootstrap;
 
-use Unicorn\UI\Base\ChildlessHtmlWidget;
+use Unicorn\UI\Base\ElementWidget;
 
-class Badge extends ChildlessHtmlWidget
+class Badge extends ElementWidget
 {
 	function __construct(string $content)
 	{

@@ -3,10 +3,9 @@
 namespace Unicorn\UI\Bootstrap;
 
 use Unicorn\UI\Base\HtmlElement;
-use Unicorn\UI\Base\ListWidget;
-use Unicorn\UI\Base\ProtectedIWidgetList;
+use Unicorn\UI\Base\ContainerWidget;
 
-abstract class Icon extends ListWidget
+abstract class Icon extends ContainerWidget
 {
 	/** @var HtmlElement */
 	private $icon;

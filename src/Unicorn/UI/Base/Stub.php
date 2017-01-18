@@ -2,12 +2,14 @@
 
 namespace Unicorn\UI\Base;
 
-class Stub implements IWidget
+use Unicorn\UI\Exceptions\NoElementSetException;
+
+class Stub implements Widget
 {
-	/** @var IWidget */
+	/** @var Widget */
 	private $widget = null;
 	
-	public function setWidget(IWidget $widget): void
+	public function setWidget(Widget $widget): void
 	{
 		$this->widget = $widget;
 	}
@@ -17,8 +19,11 @@ class Stub implements IWidget
 		return $this->widget !== null;
 	}
 	
-	public function getWidget(): ?IWidget
+	public function getWidget(): Widget
 	{
+		if($this->widget === null) {
+			throw new NoElementSetException("No widget set on Stub widget.");
+		}
 		return $this->widget;
 	}
 	

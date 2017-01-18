@@ -2,9 +2,9 @@
 
 namespace Unicorn\UI\HTML;
 
-use Unicorn\UI\Base\ChildlessHtmlWidget;
+use Unicorn\UI\Base\ElementWidget;
 
-abstract class TablePart extends ChildlessHtmlWidget
+abstract class TablePart extends ElementWidget
 {
 	/** @var TableRow[] */
 	protected $rows = array();

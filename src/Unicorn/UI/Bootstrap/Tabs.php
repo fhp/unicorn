@@ -2,11 +2,10 @@
 
 namespace Unicorn\UI\Bootstrap;
 
-use Unicorn\UI\Base\HtmlWidget;
+use Unicorn\UI\Base\ElementWidget;
 use Unicorn\UI\Base\HtmlElement;
-use Unicorn\UI\HTML\Link;
 
-class Tabs extends HtmlWidget
+class Tabs extends ElementWidget
 {
 	private $activeTabID;
 	
@@ -23,15 +22,14 @@ class Tabs extends HtmlWidget
 	{
 		$this->activeTabID = $activeTabID;
 		
+		parent::__construct("div");
+		
 		$this->tabBar = new NavigationTabs();
+		$this->getElement()->addChild($this->tabBar);
 		
 		$this->contents = new HtmlElement("div");
 		$this->contents->addClass("tab-content");
-		
-		parent::__construct("div");
-		
-		$this->addChild($this->tabBar);
-		$this->addChild($this->contents);
+		$this->getElement()->addChild($this->contents);
 	}
 	
 	public function addTab(ITab $tab): void
@@ -76,11 +74,6 @@ class Tabs extends HtmlWidget
 	{
 		$this->setActiveTab();
 		
-		if($this->actionTabBar !== null) {
-			$this->tabBar->addChild($this->actionTabBarMenu);
-		}
-		
-		$html = parent::render();
-		return $html;
+		return parent::render();
 	}
 }

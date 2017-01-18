@@ -3,10 +3,10 @@
 namespace Unicorn\UI\Bootstrap;
 
 use Unicorn\UI\Base\HtmlElement;
-use Unicorn\UI\Base\IWidget;
-use Unicorn\UI\Base\WidgetList;
+use Unicorn\UI\Base\Widget;
+use Unicorn\UI\Base\Container;
 
-class Collapsible extends WidgetList
+class Collapsible extends Container
 {
 	private $button;
 	private $area;
@@ -35,12 +35,12 @@ class Collapsible extends WidgetList
 		return $this->area;
 	}
 	
-	public function addChild(IWidget $child): void
+	public function addChild(Widget $child): void
 	{
 		$this->getElement()->addChild($child);
 	}
 	
-	public function prependChild(IWidget $child): void
+	public function prependChild(Widget $child): void
 	{
 		$this->getElement()->prependChild($child);
 	}

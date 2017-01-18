@@ -1,9 +1,9 @@
 <?php
 
 namespace Unicorn\UI\HTML;
-use Unicorn\UI\Base\ChildlessHtmlWidget;
+use Unicorn\UI\Base\ElementWidget;
 
-class Image extends ChildlessHtmlWidget
+class Image extends ElementWidget
 {
 	function __construct(string $src)
 	{

@@ -2,7 +2,7 @@
 
 namespace Unicorn\UI\Base;
 
-class HtmlElement extends WidgetList implements IHtmlElement
+class HtmlElement extends Container implements Element
 {
 	private $tag;
 	private $classes = array();

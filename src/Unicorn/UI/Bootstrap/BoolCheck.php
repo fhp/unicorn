@@ -2,11 +2,11 @@
 
 namespace Unicorn\UI\Bootstrap;
 
-use Unicorn\UI\Base\ListWidget;
+use Unicorn\UI\Base\ContainerWidget;
 use Unicorn\UI\Bootstrap\Icons\TrueIcon;
 use Unicorn\UI\Bootstrap\Icons\FalseIcon;
 
-class BoolCheck extends ListWidget
+class BoolCheck extends ContainerWidget
 {
 	function __construct(bool $bool, bool $longformat = true)
 	{

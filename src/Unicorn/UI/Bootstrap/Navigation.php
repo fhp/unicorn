@@ -2,9 +2,9 @@
 
 namespace Unicorn\UI\Bootstrap;
 
-use Unicorn\UI\Base\ChildlessHtmlWidget;
+use Unicorn\UI\Base\ElementWidget;
 
-abstract class Navigation extends ChildlessHtmlWidget
+abstract class Navigation extends ElementWidget
 {
 	function __construct()
 	{

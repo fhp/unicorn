@@ -2,7 +2,7 @@
 
 namespace Unicorn\UI\Base;
 
-class HtmlBlob implements IWidget
+class HtmlBlob implements Widget
 {
 	private $html;
 	
