@@ -8,7 +8,7 @@ trait ContainerWrapper
 {
 	/** @var WidgetContainer */
 	private $container = null;
-
+	
 	protected function setContainer(WidgetContainer $container): void
 	{
 		$this->container = $container;

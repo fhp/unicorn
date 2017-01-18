@@ -13,6 +13,4 @@ interface WidgetContainer
 	public function prependText(string $text): void;
 	
 	public function removeChildren(): void;
-	
-	public function render(): string;
 }

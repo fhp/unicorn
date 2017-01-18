@@ -2,7 +2,7 @@
 
 namespace Unicorn\UI\Base;
 
-Interface Widget
+interface Widget
 {
 	public function render(): string;
 }
