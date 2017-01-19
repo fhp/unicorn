@@ -24,36 +24,36 @@ class Table extends ElementWidget
 		$this->element()->addChild($this->tfoot);
 	}
 	
-	public function getHeader(): TableHeader
+	public function header(): TableHeader
 	{
 		if(!$this->thead->hasWidget()) {
 			$this->thead->setWidget(new TableHeader());
 		}
 		
-		return $this->thead->getWidget();
+		return $this->thead->widget();
 	}
 	
-	public function getBody(): TableBody
+	public function body(): TableBody
 	{
 		if(!$this->tbody->hasWidget()) {
 			$this->tbody->setWidget(new TableBody());
 		}
 		
-		return $this->tbody->getWidget();
+		return $this->tbody->widget();
 	}
 	
-	public function getFooter(): TableFooter
+	public function footer(): TableFooter
 	{
 		if(!$this->tfoot->hasWidget()) {
 			$this->tfoot->setWidget(new TableFooter());
 		}
 		
-		return $this->tfoot->getWidget();
+		return $this->tfoot->widget();
 	}
 	
 	public function addColumn(string $header, iterable $data): void
 	{
-		$this->getHeader()->addColumn($header);
-		$this->getBody()->addColumn($data);
+		$this->header()->addColumn($header);
+		$this->body()->addColumn($data);
 	}
 }

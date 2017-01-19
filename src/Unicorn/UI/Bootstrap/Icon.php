@@ -28,7 +28,7 @@ abstract class Icon extends ListWidget
 			$this->setColor($this->color());
 		}
 		
-		$this->getContainer()->addChild($this->icon);
+		$this->container()->addChild($this->icon);
 		
 		if($ariaMeaning !== null) {
 			$this->setAriaMeaning($ariaMeaning);
@@ -57,7 +57,7 @@ abstract class Icon extends ListWidget
 		}
 		$this->airaSpan->addText($meaning);
 		
-		$this->getContainer()->addChild($this->airaSpan);
+		$this->container()->addChild($this->airaSpan);
 	}
 	
 	public function render(): string

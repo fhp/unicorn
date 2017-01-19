@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class HtmlBlobTest extends TestCase
 {
-	use TestIsNoContainer;
+	use TestHasNoChildren;
 	use TestIsNoElement;
 	
 	function constructTestObject()

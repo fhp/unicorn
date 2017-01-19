@@ -7,7 +7,7 @@ use Unicorn\UI\Exceptions\NoElementSetException;
 
 class StubTest extends TestCase
 {
-	use TestIsNoContainer;
+	use TestHasNoChildren;
 	use TestIsNoElement;
 	
 	function constructTestObject()

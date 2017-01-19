@@ -36,8 +36,8 @@ class Tabs extends ElementWidget
 	{
 		$this->tabs[] = $tab;
 		
-		$this->tabBar->addItem($tab->getNavigationItem());
-		$this->contents->addChild($tab->getContentPane());
+		$this->tabBar->addItem($tab->navigationItem());
+		$this->contents->addChild($tab->contentPane());
 	}
 	
 	private function setActiveTab(): void
@@ -49,7 +49,7 @@ class Tabs extends ElementWidget
 		 */
 		
 		foreach($this->tabs as $tab) {
-			if($tab->active()) {
+			if($tab->isActive()) {
 				$tab->activate();
 				return;
 			}

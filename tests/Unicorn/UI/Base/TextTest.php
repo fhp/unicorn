@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class TextTest extends TestCase
 {
-	use TestIsNoContainer;
+	use TestHasNoChildren;
 	use TestIsNoElement;
 	
 	function constructTestObject()

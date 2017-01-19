@@ -37,7 +37,7 @@ class Panel extends ElementWidget implements WidgetContainer
 		$this->element()->addChild($this->footer);
 	}
 	
-	public function getHeader(): HtmlElement
+	public function header(): HtmlElement
 	{
 		if(!$this->header->hasWidget()) {
 			$header = new HtmlElement("div");
@@ -45,10 +45,10 @@ class Panel extends ElementWidget implements WidgetContainer
 			
 			$this->header->setWidget($header);
 		}
-		return $this->header->getWidget();
+		return $this->header->widget();
 	}
 	
-	public function getBody(): HtmlElement
+	public function body(): HtmlElement
 	{
 		if(!$this->body->hasWidget()) {
 			$header = new HtmlElement("div");
@@ -56,15 +56,15 @@ class Panel extends ElementWidget implements WidgetContainer
 			
 			$this->body->setWidget($header);
 		}
-		return $this->body->getWidget();
+		return $this->body->widget();
 	}
 	
-	public function getTable(): Table
+	public function table(): Table
 	{
 		if(!$this->table->hasWidget()) {
 			$this->table->setWidget(new Table());
 		}
-		return $this->table->getWidget();
+		return $this->table->widget();
 	}
 	
 	public function setTable(Table $table): void
@@ -72,7 +72,7 @@ class Panel extends ElementWidget implements WidgetContainer
 		$this->table->setWidget($table);
 	}
 	
-	public function getFooter(): HtmlElement
+	public function footer(): HtmlElement
 	{
 		if(!$this->footer->hasWidget()) {
 			$header = new HtmlElement("div");
@@ -80,31 +80,31 @@ class Panel extends ElementWidget implements WidgetContainer
 			
 			$this->footer->setWidget($header);
 		}
-		return $this->footer->getWidget();
+		return $this->footer->widget();
 	}
 	
 	public function addChild(Widget $child): void
 	{
-		$this->getBody()->addChild($child);
+		$this->body()->addChild($child);
 	}
 	
 	public function prependChild(Widget $child): void
 	{
-		$this->getBody()->prependChild($child);
+		$this->body()->prependChild($child);
 	}
 	
 	public function addText(string $text): void
 	{
-		$this->getBody()->addText($text);
+		$this->body()->addText($text);
 	}
 	
 	public function prependText(string $text): void
 	{
-		$this->getBody()->prependText($text);
+		$this->body()->prependText($text);
 	}
 	
 	public function removeChildren(): void
 	{
-		$this->getBody()->removeChildren();
+		$this->body()->removeChildren();
 	}
 }

@@ -2,19 +2,13 @@
 
 namespace Unicorn\UI\HTML;
 
-use Unicorn\UI\Base\PanelWidget;
+use Unicorn\UI\Base\HtmlElement;
 use Unicorn\UI\Bootstrap\ContextualStyle;
 
-abstract class TableCell extends PanelWidget
+abstract class TableCell extends HtmlElement
 {
-	function __construct($element)
-	{
-		parent::__construct($element);
-		$this->setContainer($this->element());
-	}
-	
 	public function setStyle(ContextualStyle $style): void
 	{
-		$this->element()->addClass($style);
+		$this->addClass($style);
 	}
 }

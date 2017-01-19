@@ -2,6 +2,8 @@
 
 namespace Unicorn\UI\HTML;
 
+use Unicorn\UI\Base\Widget;
+
 class TableBody extends TablePart
 {
 	function __construct()
@@ -25,12 +27,12 @@ class TableBody extends TablePart
 				$this->addRow(new TableRow());
 			}
 			$cell = new TableData();
-			if(is_a($element, "IWidget")) {
+			if($element instanceof Widget) {
 				$cell->addChild($element);
 			} else if(is_string($element)) {
 				$cell->addtext($element);
 			} else {
-				throw new \RuntimeException("Invalid array passed to TableBody::addColumn(). The array can contain only strings and IWidget elements");
+				throw new \InvalidArgumentException("Invalid array passed to TableBody::addColumn(). The array can contain only strings and Widget elements");
 			}
 			$this->rows[$i++]->addCell($cell);
 		}

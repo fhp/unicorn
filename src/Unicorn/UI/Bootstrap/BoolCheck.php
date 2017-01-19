@@ -15,10 +15,10 @@ class BoolCheck extends ListWidget
 		$icon = $bool ? new TrueIcon : new FalseIcon;
 		$text = $bool ? "ja" : "nee";
 		
-		$this->getContainer()->addChild($icon);
+		$this->container()->addChild($icon);
 		
 		if($longformat) {
-			$this->getContainer()->addText(" " . $text);
+			$this->container()->addText(" " . $text);
 		} else {
 			$icon->setAriaMeaning($text);
 		}

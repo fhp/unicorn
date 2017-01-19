@@ -27,41 +27,41 @@ class Tab extends PanelWidget implements ITab
 		
 		$this->name = $name;
 		
-		$link = new Link("#" . $this->getID());
-		$link->addText($this->getTabName());
+		$link = new Link("#" . $this->id());
+		$link->addText($this->tabName());
 		$link->setRole("tab");
 		$link->setData("toggle", "tab");
 		
 		$this->navItem = new NavigationItem($link);
 	}
 	
-	public function getContentPane(): Container
+	public function contentPane(): Container
 	{
-		return $this->getContainer();
+		return $this->container();
 	}
 	
-	public function getNavigationItem(): NavigationItem
+	public function navigationItem(): NavigationItem
 	{
 		return $this->navItem;
 	}
 	
-	public function getTabName(): string
+	public function tabName(): string
 	{
 		return $this->name;
 	}
 	
-	public function getID(): string
+	public function id(): string
 	{
-		return parent::getID();
+		return parent::id();
 	}
 	
 	public function activate(): void
 	{
 		$this->element()->addClass("active");
-		$this->getNavigationItem()->addClass("active");
+		$this->navigationItem()->addClass("active");
 	}
 	
-	public function active(): bool
+	public function isActive(): bool
 	{
 		return false;
 	}

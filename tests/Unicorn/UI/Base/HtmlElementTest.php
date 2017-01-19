@@ -8,7 +8,7 @@ class HtmlElementTest extends TestCase
 {
 	use TestIsHtmlElement;
 	
-	function constructHtmlElement(): Element
+	function constructTestObject(): Element
 	{
 		return new HtmlElement("p");
 	}

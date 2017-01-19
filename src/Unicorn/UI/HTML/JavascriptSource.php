@@ -2,13 +2,13 @@
 
 namespace Unicorn\UI\HTML;
 
-use Unicorn\UI\Base\HtmlElement;
+use Unicorn\UI\Base\PlainWidget;
 
-class JavascriptSource extends HtmlElement
+class JavascriptSource extends PlainWidget
 {
 	function __construct($url)
 	{
 		parent::__construct("script");
-		$this->setProperty("src", $url);
+		$this->element()->setProperty("src", $url);
 	}
 }

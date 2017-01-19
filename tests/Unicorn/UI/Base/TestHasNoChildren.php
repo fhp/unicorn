@@ -4,7 +4,7 @@ namespace Unicorn\UI\Base;
 
 use Unicorn\MethodExitsTests;
 
-trait TestIsNoContainer
+trait TestHasNoChildren
 {
 	abstract function constructTestObject();
 	

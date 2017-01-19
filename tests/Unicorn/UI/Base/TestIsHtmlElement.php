@@ -7,23 +7,18 @@ trait TestIsHtmlElement
 	use TestIsElement;
 	
 	/** @return HtmlElement */
-	abstract function constructHtmlElement();
-	
-	function constructTestObject(): Element
-	{
-		return $this->constructHtmlElement();
-	}
+	abstract function constructTestObject();
 	
 	function testNoCloseTag()
 	{
-		$t = $this->constructHtmlElement();
+		$t = $this->constructTestObject();
 		$t->noCloseTag();
 		$this->assertNotContains("</", trim($t->render()));
 	}
 	
 	function testProperties()
 	{
-		$t = $this->constructHtmlElement();
+		$t = $this->constructTestObject();
 		
 		$this->assertNull($t->property("src"));
 		
@@ -41,7 +36,7 @@ trait TestIsHtmlElement
 	
 	function testData()
 	{
-		$t = $this->constructHtmlElement();
+		$t = $this->constructTestObject();
 		
 		$this->assertNull($t->data("foo"));
 		
@@ -59,7 +54,7 @@ trait TestIsHtmlElement
 	
 	function testRole()
 	{
-		$t = $this->constructHtmlElement();
+		$t = $this->constructTestObject();
 		
 		$this->assertNull($t->role());
 		
@@ -77,7 +72,7 @@ trait TestIsHtmlElement
 	
 	function testAria()
 	{
-		$t = $this->constructHtmlElement();
+		$t = $this->constructTestObject();
 		
 		$this->assertNull($t->aria("test"));
 		
@@ -95,7 +90,7 @@ trait TestIsHtmlElement
 	
 	function testEditable()
 	{
-		$t = $this->constructHtmlElement();
+		$t = $this->constructTestObject();
 		
 		$this->assertNotContains("contenteditable=", $t->render());
 		
@@ -108,7 +103,7 @@ trait TestIsHtmlElement
 	
 	function testSpellcheck()
 	{
-		$t = $this->constructHtmlElement();
+		$t = $this->constructTestObject();
 		
 		$this->assertNotContains("spellcheck=", $t->render());
 		
@@ -121,7 +116,7 @@ trait TestIsHtmlElement
 	
 	function testDraggable()
 	{
-		$t = $this->constructHtmlElement();
+		$t = $this->constructTestObject();
 		
 		$this->assertNotContains("draggable=", $t->render());
 		
@@ -134,7 +129,7 @@ trait TestIsHtmlElement
 	
 	function testTabIndex()
 	{
-		$t = $this->constructHtmlElement();
+		$t = $this->constructTestObject();
 		
 		$this->assertNull($t->tabindex());
 		
@@ -152,7 +147,7 @@ trait TestIsHtmlElement
 	
 	function testTitle()
 	{
-		$t = $this->constructHtmlElement();
+		$t = $this->constructTestObject();
 		
 		$this->assertNull($t->title());
 		
@@ -170,7 +165,7 @@ trait TestIsHtmlElement
 	
 	function testLanguage()
 	{
-		$t = $this->constructHtmlElement();
+		$t = $this->constructTestObject();
 		
 		$this->assertNull($t->language());
 		
@@ -188,7 +183,7 @@ trait TestIsHtmlElement
 	
 	function testTextDirection()
 	{
-		$t = $this->constructHtmlElement();
+		$t = $this->constructTestObject();
 		
 		$this->assertNull($t->textDirection());
 		
@@ -206,7 +201,7 @@ trait TestIsHtmlElement
 	
 	function testAccessKey()
 	{
-		$t = $this->constructHtmlElement();
+		$t = $this->constructTestObject();
 		
 		$this->assertNull($t->accesskey());
 		
@@ -224,7 +219,7 @@ trait TestIsHtmlElement
 	
 	function testJavascriptEvent()
 	{
-		$t = $this->constructHtmlElement();
+		$t = $this->constructTestObject();
 		
 		$this->assertNull($t->javascriptEvent("click"));
 		

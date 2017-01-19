@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 class ListWidgetTest extends TestCase
 {
 	use TestIsNoElement;
-	use TestIsNoContainer;
+	use TestHasNoChildren;
 	
 	function constructTestObject()
 	{

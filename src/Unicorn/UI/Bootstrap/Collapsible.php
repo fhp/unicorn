@@ -2,61 +2,43 @@
 
 namespace Unicorn\UI\Bootstrap;
 
+use Unicorn\UI\Base\ContainerWrapper;
 use Unicorn\UI\Base\HtmlElement;
 use Unicorn\UI\Base\Widget;
-use Unicorn\UI\Base\Container;
+use Unicorn\UI\Base\WidgetContainer;
 
-class Collapsible extends Container
+class Collapsible implements WidgetContainer, Widget
 {
+	use ContainerWrapper {
+		ContainerWrapper::container as public;
+	}
+	
 	private $button;
-	private $area;
 	
 	function __construct(string $id, string $text = null, Icon $icon = null)
 	{
+		
 		$this->button = new Button($text, $icon);
 		$this->button->setData("toggle", "collapse");
 		$this->button->setData("target", "#" . $id);
 		
-		$this->area = new HtmlElement("div");
-		$this->area->setID($id);
-		$this->area->addClass("collapse");
+		$area = new HtmlElement("div");
+		$area->setID($id);
+		$area->addClass("collapse");
 		
-		parent::addChild($this->button);
-		parent::addChild($this->area);
+		$this->setContainer($area);
 	}
 	
-	public function getButton(): Button
+	public function button(): Button
 	{
 		return $this->button;
 	}
 	
-	protected function getElement(): HtmlElement
+	public function render(): string
 	{
-		return $this->area;
-	}
-	
-	public function addChild(Widget $child): void
-	{
-		$this->getElement()->addChild($child);
-	}
-	
-	public function prependChild(Widget $child): void
-	{
-		$this->getElement()->prependChild($child);
-	}
-	
-	public function addText(string $text): void
-	{
-		$this->getElement()->addText($text);
-	}
-	
-	public function prependText(string $text): void
-	{
-		$this->getElement()->prependText($text);
-	}
-	
-	public function removeChildren(): void
-	{
-		$this->getElement()->removeChildren();
+		$html = "";
+		$html .= $this->button()->render();
+		$html .= $this->container()->render();
+		return $html;
 	}
 }

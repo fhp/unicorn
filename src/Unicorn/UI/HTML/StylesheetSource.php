@@ -2,16 +2,17 @@
 
 namespace Unicorn\UI\HTML;
 
-use Unicorn\UI\Base\HtmlElement;
+use Unicorn\UI\Base\PlainWidget;
 
-class StylesheetSource extends HtmlElement
+class StylesheetSource extends PlainWidget
 {
 	function __construct($url)
 	{
 		parent::__construct("link");
-		$this->setProperty("href", $url);
-		$this->setProperty("type", "text/css");
-		$this->setProperty("rel", "stylesheet");
-		$this->noCloseTag();
+		$link = $this->element();
+		$link->setProperty("href", $url);
+		$link->setProperty("type", "text/css");
+		$link->setProperty("rel", "stylesheet");
+		$link->noCloseTag();
 	}
 }

@@ -4,6 +4,8 @@ namespace Unicorn\UI\Base;
 
 trait TestIsElement
 {
+	use TestIsWidget;
+	
 	/** @return Element */
 	abstract function constructTestObject();
 	
@@ -25,9 +27,9 @@ trait TestIsElement
 		$this->assertFalse($t->hasClass("henk"));
 		$t->addClass("henk");
 		$this->assertTrue($t->hasClass("henk"));
-		$this->assertContains("class=\"henk\"", $t->render());
+		$this->assertRegExp("/class=\"([^\"]*)henk([^\"]*)\"/", $t->render());
 		$t->removeClass("henk");
 		$this->assertFalse($t->hasClass("henk"));
-		$this->assertNotContains("class=", $t->render());
+		$this->assertNotRegExp("/class=\"([^\"]*)henk([^\"]*)\"/", $t->render());
 	}
 }
