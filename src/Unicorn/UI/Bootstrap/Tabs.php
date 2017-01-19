@@ -25,11 +25,11 @@ class Tabs extends ElementWidget
 		parent::__construct("div");
 		
 		$this->tabBar = new NavigationTabs();
-		$this->getElement()->addChild($this->tabBar);
+		$this->element()->addChild($this->tabBar);
 		
 		$this->contents = new HtmlElement("div");
 		$this->contents->addClass("tab-content");
-		$this->getElement()->addChild($this->contents);
+		$this->element()->addChild($this->contents);
 	}
 	
 	public function addTab(ITab $tab): void

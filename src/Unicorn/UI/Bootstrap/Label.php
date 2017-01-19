@@ -17,6 +17,6 @@ class Label extends ElementWidget
 		$this->addClass("label");
 		$this->addClass("label-$style");
 		
-		$this->getElement()->addText($content);
+		$this->element()->addText($content);
 	}
 }

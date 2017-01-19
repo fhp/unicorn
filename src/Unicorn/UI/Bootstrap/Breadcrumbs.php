@@ -42,14 +42,14 @@ class Breadcrumbs extends ElementWidget
 			$li = new HtmlElement("li");
 			$li->addChild($link);
 			
-			$this->getElement()->addChild($li);
+			$this->element()->addChild($li);
 		}
 		
 		$li = new HtmlElement("li");
 		$li->addClass("active");
 		$li->addText($this->activePage);
 		
-		$this->getElement()->addChild($li);
+		$this->element()->addChild($li);
 	}
 	
 	public function render(): string

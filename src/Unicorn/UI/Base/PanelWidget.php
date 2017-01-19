@@ -2,10 +2,14 @@
 
 namespace Unicorn\UI\Base;
 
-class PanelWidget extends ElementWidget implements WidgetContainer
+abstract class PanelWidget extends ElementWidget implements WidgetContainer
 {
 	use ContainerWrapper;
 	
+	/**
+	 * ElementWidget constructor.
+	 * @param Element|string $element An Element object, or a tag name in which case a HtmlElement will be instantiated.
+	 */
 	function __construct($element)
 	{
 		parent::__construct($element);

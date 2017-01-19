@@ -15,8 +15,8 @@ class Tab extends PanelWidget implements ITab
 	function __construct(string $id, string $name, bool $header = true)
 	{
 		parent::__construct("div");
-		$this->setContainer($this->getElement());
-		$content = $this->getElement();
+		$this->setContainer($this->element());
+		$content = $this->element();
 		$content->setRole("tabpanel");
 		$content->addClass("tab-pane");
 		$content->setID($id);
@@ -57,7 +57,7 @@ class Tab extends PanelWidget implements ITab
 	
 	public function activate(): void
 	{
-		$this->getElement()->addClass("active");
+		$this->element()->addClass("active");
 		$this->getNavigationItem()->addClass("active");
 	}
 	

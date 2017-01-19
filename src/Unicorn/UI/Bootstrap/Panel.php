@@ -31,10 +31,10 @@ class Panel extends ElementWidget implements WidgetContainer
 		$this->table = new Stub();
 		$this->footer = new Stub();
 		
-		$this->getElement()->addChild($this->header);
-		$this->getElement()->addChild($this->body);
-		$this->getElement()->addChild($this->table);
-		$this->getElement()->addChild($this->footer);
+		$this->element()->addChild($this->header);
+		$this->element()->addChild($this->body);
+		$this->element()->addChild($this->table);
+		$this->element()->addChild($this->footer);
 	}
 	
 	public function getHeader(): HtmlElement

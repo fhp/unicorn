@@ -7,6 +7,6 @@ class NavigationTabs extends Navigation
 	{
 		parent::__construct();
 		$this->addClass("nav-tabs");
-		$this->getElement()->setRole("tablist");
+		$this->element()->setRole("tablist");
 	}
 }

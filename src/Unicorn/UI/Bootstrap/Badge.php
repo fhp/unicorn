@@ -11,6 +11,6 @@ class Badge extends ElementWidget
 		parent::__construct("span");
 		$this->addClass("badge");
 		
-		$this->getElement()->addText($content);
+		$this->element()->addText($content);
 	}
 }

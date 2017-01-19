@@ -19,9 +19,9 @@ class Table extends ElementWidget
 		$this->tbody = new Stub();
 		$this->tfoot = new Stub();
 		
-		$this->getElement()->addChild($this->thead);
-		$this->getElement()->addChild($this->tbody);
-		$this->getElement()->addChild($this->tfoot);
+		$this->element()->addChild($this->thead);
+		$this->element()->addChild($this->tbody);
+		$this->element()->addChild($this->tfoot);
 	}
 	
 	public function getHeader(): TableHeader

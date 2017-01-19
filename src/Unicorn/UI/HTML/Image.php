@@ -8,7 +8,7 @@ class Image extends ElementWidget
 	function __construct(string $src)
 	{
 		parent::__construct("img");
-		$this->getElement()->noCloseTag();
-		$this->getElement()->setProperty("src", $src);
+		$this->element()->noCloseTag();
+		$this->element()->setProperty("src", $src);
 	}
 }

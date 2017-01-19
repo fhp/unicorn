@@ -9,8 +9,8 @@ class NavigationItem extends PanelWidget
 	public function __construct(Link $link)
 	{
 		parent::__construct("li");
-		$this->getElement()->setRole("presentation");
-		$this->getElement()->addChild($link);
+		$this->element()->setRole("presentation");
+		$this->element()->addChild($link);
 	}
 	
 	static public function fromNameAndUrl($label, $url, $count = null)

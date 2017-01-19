@@ -11,7 +11,11 @@ abstract class HtmlPage implements WidgetContainer
 	private $head;
 	private $body;
 	private $title;
-	private $content;
+	
+	use ContainerWrapper {
+		ContainerWrapper::getContainer as private;
+		ContainerWrapper::setContainer as private;
+	}
 	
 	public function __construct(HtmlElement $content)
 	{
@@ -20,12 +24,12 @@ abstract class HtmlPage implements WidgetContainer
 		$this->body = new HtmlElement("body");
 		$this->title = new Stub();
 		
-		$this->content = $content;
-		
 		$this->html->addChild($this->head);
 		$this->html->addChild($this->body);
 		
 		$this->head->addChild($this->title);
+		
+		$this->setContainer($content);
 	}
 	
 	protected function getHtml(): HtmlElement
@@ -45,7 +49,9 @@ abstract class HtmlPage implements WidgetContainer
 	
 	protected function getContentPane(): HtmlElement
 	{
-		return $this->content;
+		/** @var HtmlElement $content */
+		$content = $this->getContainer();
+		return $content;
 	}
 	
 	protected function setTitle(string $title): void
@@ -53,11 +59,6 @@ abstract class HtmlPage implements WidgetContainer
 		$titleTag = new HtmlElement("title");
 		$titleTag->addText($title);
 		$this->title->setWidget($titleTag);
-	}
-	
-	protected function setContentPane(HtmlElement $content): void
-	{
-		$this->content = $content;
 	}
 	
 	protected function addJavascript(string $scriptSrc): void
@@ -68,31 +69,6 @@ abstract class HtmlPage implements WidgetContainer
 	protected function addStylesheet(string $styleSrc): void
 	{
 		$this->getHead()->addChild(new StylesheetSource($styleSrc));
-	}
-	
-	public function addChild(Widget $child): void
-	{
-		$this->getContentPane()->addChild($child);
-	}
-	
-	public function prependChild(Widget $child): void
-	{
-		$this->getContentPane()->prependChild($child);
-	}
-	
-	public function addText(string $text): void
-	{
-		$this->getContentPane()->addText($text);
-	}
-	
-	public function prependText(string $text): void
-	{
-		$this->getContentPane()->prependText($text);
-	}
-	
-	public function removeChildren(): void
-	{
-		$this->getContentPane()->removeChildren();
 	}
 	
 	public function render(): string

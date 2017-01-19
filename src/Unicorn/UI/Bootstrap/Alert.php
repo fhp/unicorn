@@ -12,7 +12,7 @@ class Alert extends ElementWidget
 	function __construct(string $header, string $message, ContextualStyle $style)
 	{
 		parent::__construct("div");
-		$alert = $this->getElement();
+		$alert = $this->element();
 		
 		$alert->addClass("alert");
 		$alert->addClass("alert-" . $style);
@@ -25,7 +25,7 @@ class Alert extends ElementWidget
 	
 	public function dismissable()
 	{
-		$alert = $this->getElement();
+		$alert = $this->element();
 		
 		$alert->addClass("alert-dismissible");
 		

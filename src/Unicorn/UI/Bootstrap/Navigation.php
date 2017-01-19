@@ -14,6 +14,6 @@ abstract class Navigation extends ElementWidget
 	
 	public function addItem(NavigationItem $item): void
 	{
-		$this->getElement()->addChild($item);
+		$this->element()->addChild($item);
 	}
 }

@@ -16,7 +16,7 @@ abstract class TablePart extends ElementWidget
 	
 	public function addRow(TableRow $row): void
 	{
-		$this->getElement()->addChild($row);
+		$this->element()->addChild($row);
 		$this->rows[] = $row;
 	}
 }

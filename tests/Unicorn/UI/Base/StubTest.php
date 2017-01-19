@@ -1,0 +1,58 @@
+<?php
+
+namespace Unicorn\UI\Base;
+
+use PHPUnit\Framework\TestCase;
+use Unicorn\UI\Exceptions\NoElementSetException;
+
+class StubTest extends TestCase
+{
+	use TestIsNoContainer;
+	use TestIsNoElement;
+	
+	function constructTestObject()
+	{
+		return new Stub();
+	}
+	
+	function testDefaultEmpty()
+	{
+		$s = new Stub();
+		$this->assertFalse($s->hasWidget());
+	}
+	
+	function testEmptyGetWidgetException()
+	{
+		$s = new Stub();
+		$this->expectException(NoElementSetException::class);
+		$s->getWidget();
+	}
+	
+	function testSetWidget()
+	{
+		$s = new Stub();
+		$this->assertFalse($s->hasWidget());
+		$s->setWidget(new Text("Hallo"));
+		$this->assertTrue($s->hasWidget());
+	}
+	
+	function testGetWidget()
+	{
+		$s = new Stub();
+		$s->setWidget(new Text("Hallo"));
+		$this->assertInstanceOf(Text::class, $s->getWidget());
+	}
+	
+	function testRenderEmpty()
+	{
+		$s = new Stub();
+		$this->assertEquals("", $s->render());
+	}
+	
+	function testRender()
+	{
+		$s = new Stub();
+		$s->setWidget(new Text("Hallo"));
+		$this->assertEquals("Hallo", $s->render());
+	}
+}

@@ -16,10 +16,10 @@ trait ElementWrapper
 	{
 		if($element === null) {
 			// Do nothing
-		} else if(is_a($element, "Element")) {
-			$this->setElement($element);
+		} else if($element instanceof Element) {
+			$this->element = $element;
 		} else if(is_string($element)) {
-			$this->setElement(new HtmlElement($element));
+			$this->element = new HtmlElement($element);
 		} else {
 			throw new \InvalidArgumentException("Invalid argument \$element to ElementWidget. Must be an instance of Element, a string (html tag name), or null.");
 		}
@@ -29,7 +29,7 @@ trait ElementWrapper
 	 * @return Element|HtmlElement
 	 * @throws NoElementSetException
 	 */
-	protected function getElement(): Element
+	protected function element(): Element
 	{
 		if($this->element === null) {
 			throw new NoElementSetException("No element set on ElementWrapper trait.");
@@ -39,35 +39,35 @@ trait ElementWrapper
 	
 	public function getID(): ?string
 	{
-		return $this->getElement()->getID();
+		return $this->element()->getID();
 	}
 	
 	public function setID(string $id): void
 	{
-		$this->getElement()->setID($id);
+		$this->element()->setID($id);
 	}
 	public function removeID(): void
 	{
-		$this->getElement()->removeID();
+		$this->element()->removeID();
 	}
 	
 	public function hasClass(string $class): bool
 	{
-		return $this->getElement()->hasClass($class);
+		return $this->element()->hasClass($class);
 	}
 	
 	public function addClass(string $class): void
 	{
-		$this->getElement()->addClass($class);
+		$this->element()->addClass($class);
 	}
 	
 	public function removeClass(string $class): void
 	{
-		$this->getElement()->removeClass($class);
+		$this->element()->removeClass($class);
 	}
 	
 	public function render(): string
 	{
-		return $this->getElement()->render();
+		return $this->element()->render();
 	}
 }

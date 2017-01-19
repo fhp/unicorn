@@ -14,12 +14,12 @@ class TableRow extends ElementWidget
 	
 	public function addCell(TableCell $cell): void
 	{
-		$this->getElement()->addChild($cell);
+		$this->element()->addChild($cell);
 	}
 	
 	public function setStyle(ContextualStyle $style): void
 	{
-		$this->getElement()->addClass($style);
+		$this->element()->addClass($style);
 	}
 	
 	static public function headerFromArray(iterable $data): TableRow
