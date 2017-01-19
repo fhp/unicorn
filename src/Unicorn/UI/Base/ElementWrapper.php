@@ -37,9 +37,9 @@ trait ElementWrapper
 		return $this->element;
 	}
 	
-	public function getID(): ?string
+	public function id(): ?string
 	{
-		return $this->element()->getID();
+		return $this->element()->id();
 	}
 	
 	public function setID(string $id): void

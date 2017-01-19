@@ -40,7 +40,7 @@ class HtmlElement extends Container implements Element
 		}
 	}
 	
-	public function getProperty(string $name): ?string
+	public function property(string $name): ?string
 	{
 		for($i = 0; $i < count($this->properties); $i++) {
 			if($this->properties[$i]["name"] == $name) {
@@ -70,9 +70,9 @@ class HtmlElement extends Container implements Element
 		}
 	}
 	
-	public function getID(): ?string
+	public function id(): ?string
 	{
-		return $this->getProperty("id");
+		return $this->property("id");
 	}
 	
 	public function setID(string $id): void
@@ -85,9 +85,9 @@ class HtmlElement extends Container implements Element
 		$this->removeProperty("id");
 	}
 	
-	public function getData(string $name): ?string
+	public function data(string $name): ?string
 	{
-		return $this->getProperty("data-" . $name);
+		return $this->property("data-" . $name);
 	}
 	
 	public function setData(string $name, string $value): void
@@ -100,9 +100,9 @@ class HtmlElement extends Container implements Element
 		$this->removeProperty("data-" . $name);
 	}
 	
-	public function getRole(): ?string
+	public function role(): ?string
 	{
-		return $this->getProperty("role");
+		return $this->property("role");
 	}
 	
 	public function setRole(string $role): void
@@ -115,9 +115,9 @@ class HtmlElement extends Container implements Element
 		$this->removeProperty("role");
 	}
 	
-	public function getAria(string $name): ?string
+	public function aria(string $name): ?string
 	{
-		return $this->getProperty("aria-" . $name);
+		return $this->property("aria-" . $name);
 	}
 	
 	public function setAria($name, $value): void
@@ -160,9 +160,9 @@ class HtmlElement extends Container implements Element
 		$this->setProperty("draggable", "false");
 	}
 	
-	public function getTabindex(): ?int
+	public function tabindex(): ?int
 	{
-		return $this->getProperty("tabindex");
+		return $this->property("tabindex");
 	}
 	
 	public function setTabindex(int $tabindex): void
@@ -175,9 +175,9 @@ class HtmlElement extends Container implements Element
 		$this->removeProperty("tabindex");
 	}
 	
-	public function getTitle(): ?string
+	public function title(): ?string
 	{
-		return $this->getProperty("title");
+		return $this->property("title");
 	}
 	
 	public function setTitle(string $title): void
@@ -190,9 +190,9 @@ class HtmlElement extends Container implements Element
 		$this->removeProperty("title");
 	}
 	
-	public function getLanguage(): ?string
+	public function language(): ?string
 	{
-		return $this->getProperty("language");
+		return $this->property("language");
 	}
 	
 	public function setLanguage(string $language): void
@@ -205,9 +205,9 @@ class HtmlElement extends Container implements Element
 		$this->removeProperty("language");
 	}
 	
-	public function getTextDirection(): ?string
+	public function textDirection(): ?string
 	{
-		return $this->getProperty("dir");
+		return $this->property("dir");
 	}
 	
 	public function setTextDirection(string $textDirection): void
@@ -220,9 +220,9 @@ class HtmlElement extends Container implements Element
 		$this->removeProperty("dir");
 	}
 	
-	public function getAccesskey(): ?string
+	public function accesskey(): ?string
 	{
-		return $this->getProperty("accesskey");
+		return $this->property("accesskey");
 	}
 	
 	public function setAccesskey(string $accesskey): void
@@ -235,9 +235,9 @@ class HtmlElement extends Container implements Element
 		$this->removeProperty("accesskey");
 	}
 	
-	public function getJavascriptEvent(string $event): ?string
+	public function javascriptEvent(string $event): ?string
 	{
-		return $this->getProperty("on" . $event);
+		return $this->property("on" . $event);
 	}
 	
 	public function setJavascriptEvent(string $event, string $javascript): void

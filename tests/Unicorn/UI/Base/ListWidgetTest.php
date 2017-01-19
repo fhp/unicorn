@@ -38,11 +38,11 @@ class ListWidgetTester extends ListWidget
 	function __construct()
 	{
 		parent::__construct();
-		$this->getContainer()->addText("Hallo");
+		$this->container()->addText("Hallo");
 	}
 	
 	public function getContainerTester(): Container
 	{
-		return parent::getContainer();
+		return parent::container();
 	}
 }

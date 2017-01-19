@@ -13,7 +13,7 @@ abstract class HtmlPage implements WidgetContainer
 	private $title;
 	
 	use ContainerWrapper {
-		ContainerWrapper::getContainer as private;
+		ContainerWrapper::container as private;
 		ContainerWrapper::setContainer as private;
 	}
 	
@@ -32,25 +32,25 @@ abstract class HtmlPage implements WidgetContainer
 		$this->setContainer($content);
 	}
 	
-	protected function getHtml(): HtmlElement
+	protected function html(): HtmlElement
 	{
 		return $this->html;
 	}
 	
-	protected function getHead(): HtmlElement
+	protected function head(): HtmlElement
 	{
 		return $this->head;
 	}
 	
-	protected function getBody(): HtmlElement
+	protected function body(): HtmlElement
 	{
 		return $this->body;
 	}
 	
-	protected function getContentPane(): HtmlElement
+	protected function contentPane(): HtmlElement
 	{
 		/** @var HtmlElement $content */
-		$content = $this->getContainer();
+		$content = $this->container();
 		return $content;
 	}
 	
@@ -63,18 +63,18 @@ abstract class HtmlPage implements WidgetContainer
 	
 	protected function addJavascript(string $scriptSrc): void
 	{
-		$this->getHead()->addChild(new JavascriptSource($scriptSrc));
+		$this->head()->addChild(new JavascriptSource($scriptSrc));
 	}
 	
 	protected function addStylesheet(string $styleSrc): void
 	{
-		$this->getHead()->addChild(new StylesheetSource($styleSrc));
+		$this->head()->addChild(new StylesheetSource($styleSrc));
 	}
 	
 	public function render(): string
 	{
 		$html = "<!DOCTYPE html>\n";
-		$html .= $this->getHtml()->render();
+		$html .= $this->html()->render();
 		
 		return $html;
 	}

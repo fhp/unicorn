@@ -18,7 +18,7 @@ trait ContainerWrapper
 	 * @return WidgetContainer|Container
 	 * @throws NoElementSetException
 	 */
-	protected function getContainer(): WidgetContainer
+	protected function container(): WidgetContainer
 	{
 		if($this->container === null) {
 			throw new NoElementSetException("No container set on ContainerWrapper trait.");
@@ -28,26 +28,26 @@ trait ContainerWrapper
 	
 	public function addChild(Widget $child): void
 	{
-		$this->getContainer()->addChild($child);
+		$this->container()->addChild($child);
 	}
 	
 	public function prependChild(Widget $child): void
 	{
-		$this->getContainer()->prependChild($child);
+		$this->container()->prependChild($child);
 	}
 	
 	public function addText(string $text): void
 	{
-		$this->getContainer()->addText($text);
+		$this->container()->addText($text);
 	}
 	
 	public function prependText(string $text): void
 	{
-		$this->getContainer()->prependText($text);
+		$this->container()->prependText($text);
 	}
 	
 	public function removeChildren(): void
 	{
-		$this->getContainer()->removeChildren();
+		$this->container()->removeChildren();
 	}
 }

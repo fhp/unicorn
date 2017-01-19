@@ -53,7 +53,7 @@ class PanelWidgetTester extends PanelWidget
 	function __construct($element)
 	{
 		parent::__construct($element);
-		$this->element()->addChild($this->getContainer());
+		$this->element()->addChild($this->container());
 	}
 }
 

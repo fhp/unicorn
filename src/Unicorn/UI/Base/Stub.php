@@ -19,7 +19,7 @@ class Stub implements Widget
 		return $this->widget !== null;
 	}
 	
-	public function getWidget(): Widget
+	public function widget(): Widget
 	{
 		if($this->widget === null) {
 			throw new NoElementSetException("No widget set on Stub widget.");
@@ -30,7 +30,7 @@ class Stub implements Widget
 	function render(): string
 	{
 		if($this->hasWidget()) {
-			return $this->getWidget()->render();
+			return $this->widget()->render();
 		} else {
 			return "";
 		}

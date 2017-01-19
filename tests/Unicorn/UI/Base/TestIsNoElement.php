@@ -10,7 +10,7 @@ trait TestIsNoElement
 	
 	function testNoIDMethods()
 	{
-		MethodExitsTests::assertNotMethodExist($this->constructTestObject(), "getID");
+		MethodExitsTests::assertNotMethodExist($this->constructTestObject(), "id");
 		MethodExitsTests::assertNotMethodExist($this->constructTestObject(), "setID");
 		MethodExitsTests::assertNotMethodExist($this->constructTestObject(), "removeID");
 	}

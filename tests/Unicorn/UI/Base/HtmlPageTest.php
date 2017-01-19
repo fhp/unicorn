@@ -45,7 +45,7 @@ class HtmlPageTest extends TestCase
 		
 		$p = new HtmlPageTester($div);
 		
-		$this->assertEquals($div, $p->getContentPane());
+		$this->assertEquals($div, $p->contentPane());
 		$this->assertContains("TEST", $p->render());
 	}
 }
@@ -60,12 +60,12 @@ class HtmlPageTester extends HtmlPage
 		
 		parent::__construct($content);
 		
-		$this->getBody()->addChild($content);
+		$this->body()->addChild($content);
 	}
 	
-	public function getContentPane(): HtmlElement
+	public function contentPane(): HtmlElement
 	{
-		return parent::getContentPane();
+		return parent::contentPane();
 	}
 	
 	public function setTitle(string $title): void

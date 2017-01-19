@@ -25,7 +25,7 @@ class StubTest extends TestCase
 	{
 		$s = new Stub();
 		$this->expectException(NoElementSetException::class);
-		$s->getWidget();
+		$s->widget();
 	}
 	
 	function testSetWidget()
@@ -40,7 +40,7 @@ class StubTest extends TestCase
 	{
 		$s = new Stub();
 		$s->setWidget(new Text("Hallo"));
-		$this->assertInstanceOf(Text::class, $s->getWidget());
+		$this->assertInstanceOf(Text::class, $s->widget());
 	}
 	
 	function testRenderEmpty()

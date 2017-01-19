@@ -11,13 +11,13 @@ class ListWidget implements Widget
 		$this->container = new Container();
 	}
 	
-	protected function getContainer(): Container
+	protected function container(): Container
 	{
 		return $this->container;
 	}
 	
 	public function render(): string
 	{
-		return $this->getContainer()->render();
+		return $this->container()->render();
 	}
 }
