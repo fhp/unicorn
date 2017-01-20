@@ -9,7 +9,10 @@ use Unicorn\UI\HTML\Link;
 
 class Tab extends PanelWidget implements ITab
 {
+	/** @var string */
 	private $name;
+	
+	/** @var NavigationItem */
 	private $navItem;
 	
 	function __construct(string $id, string $name, bool $header = true)

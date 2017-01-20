@@ -57,7 +57,7 @@ class Tabs extends ElementWidget
 		
 		if($this->activeTabID !== null) {
 			foreach($this->tabs as $tab) {
-				if($tab->getID() == $this->activeTabID) {
+				if($tab->id() == $this->activeTabID) {
 					$tab->activate();
 					return;
 				}
