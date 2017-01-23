@@ -16,7 +16,7 @@ class ListWidgetTest extends TestCase
 	
 	function testDefaultEmpty()
 	{
-		$l = new ListWidget();
+		$l = new ListWidgetEmptyTester();
 		$this->assertEquals("", $l->render());
 	}
 	
@@ -45,4 +45,8 @@ class ListWidgetTester extends ListWidget
 	{
 		return parent::container();
 	}
+}
+
+class ListWidgetEmptyTester extends ListWidget
+{
 }

@@ -12,25 +12,29 @@ class PlainWidgetTest extends TestCase
 	
 	function constructTestObject()
 	{
-		return new PlainWidget("p");
+		return new PlainWidgetTester("p");
 	}
 	
 	function testWidgetConstructor()
 	{
-		$p = new PlainWidget(new HtmlElement("p"));
+		$p = new PlainWidgetTester(new HtmlElement("p"));
 		$this->assertEquals("<p></p>", trim($p->render()));
 	}
 	
 	function testHtmlElementConstructor()
 	{
-		$p = new PlainWidget("p");
+		$p = new PlainWidgetTester("p");
 		$this->assertEquals("<p></p>", trim($p->render()));
 	}
 	
 	function testInvalidConstructor()
 	{
 		$this->expectException(\InvalidArgumentException::class);
-		new PlainWidget(new Text("Hallo"));
+		new PlainWidgetTester(new Text("Hallo"));
 	}
 	
+}
+
+class PlainWidgetTester extends PlainWidget
+{
 }

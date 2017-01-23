@@ -2,7 +2,7 @@
 
 namespace Unicorn\UI\Base;
 
-class PlainWidget implements Widget
+abstract class PlainWidget implements Widget
 {
 	private $element;
 	

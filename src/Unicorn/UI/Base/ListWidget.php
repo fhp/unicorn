@@ -2,7 +2,7 @@
 
 namespace Unicorn\UI\Base;
 
-class ListWidget implements Widget
+abstract class ListWidget implements Widget
 {
 	private $container;
 	
