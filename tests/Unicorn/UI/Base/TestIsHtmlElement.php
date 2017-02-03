@@ -2,6 +2,8 @@
 
 namespace Unicorn\UI\Base;
 
+use Unicorn\UI\Exceptions\UnsetPropertyException;
+
 trait TestIsHtmlElement
 {
 	use TestIsElement;
@@ -20,35 +22,46 @@ trait TestIsHtmlElement
 	{
 		$t = $this->constructTestObject();
 		
-		$this->assertNull($t->property("src"));
+		$this->assertFalse($t->hasProperty("src"));
 		
 		$t->setProperty("src", "test.jpg");
 		$this->assertEquals("test.jpg", $t->property("src"));
+		$this->assertTrue($t->hasProperty("src"));
 		
 		$t->setProperty("src", "test.png");
 		$this->assertEquals("test.png", $t->property("src"));
 		$this->assertContains("src=\"test.png\"", $t->render());
 		
 		$t->removeProperty("src");
-		$this->assertNull($t->property("src"));
+		$this->assertFalse($t->hasProperty("src"));
 		$this->assertNotContains("src=", $t->render());
+	}
+	
+	function testUnsetProperty()
+	{
+		$t = $this->constructTestObject();
+		
+		$this->assertFalse($t->hasProperty("test"));
+		$this->expectException(UnsetPropertyException::class);
+		$t->property("test");
 	}
 	
 	function testData()
 	{
 		$t = $this->constructTestObject();
 		
-		$this->assertNull($t->data("foo"));
+		$this->assertFalse($t->hasData("foo"));
 		
 		$t->setData("foo", "bar");
 		$this->assertEquals("bar", $t->data("foo"));
+		$this->assertTrue($t->hasData("foo"));
 		
 		$t->setData("foo", "baz");
 		$this->assertEquals("baz", $t->data("foo"));
 		$this->assertContains("data-foo=\"baz\"", $t->render());
 		
 		$t->removeData("foo");
-		$this->assertNull($t->data("foo"));
+		$this->assertFalse($t->hasData("foo"));
 		$this->assertNotContains("data-foo=", $t->render());
 	}
 	
@@ -56,17 +69,18 @@ trait TestIsHtmlElement
 	{
 		$t = $this->constructTestObject();
 		
-		$this->assertNull($t->role());
+		$this->assertFalse($t->hasRole());
 		
 		$t->setRole("image");
 		$this->assertEquals("image", $t->role());
+		$this->assertTrue($t->hasRole());
 		
 		$t->setRole("photo");
 		$this->assertEquals("photo", $t->role());
 		$this->assertContains("role=\"photo\"", $t->render());
 		
 		$t->removeRole();
-		$this->assertNull($t->role());
+		$this->assertFalse($t->hasRole());
 		$this->assertNotContains("role=", $t->render());
 	}
 	
@@ -74,17 +88,18 @@ trait TestIsHtmlElement
 	{
 		$t = $this->constructTestObject();
 		
-		$this->assertNull($t->aria("test"));
+		$this->assertFalse($t->hasAria("test"));
 		
 		$t->setAria("test", "image");
 		$this->assertEquals("image", $t->aria("test"));
+		$this->assertTrue($t->hasAria("test"));
 		
 		$t->setAria("test", "photo");
 		$this->assertEquals("photo", $t->aria("test"));
 		$this->assertContains("aria-test=\"photo\"", $t->render());
 		
 		$t->removeAria("test");
-		$this->assertNull($t->aria("test"));
+		$this->assertFalse($t->hasAria("test"));
 		$this->assertNotContains("aria-test", $t->render());
 	}
 	
@@ -131,17 +146,18 @@ trait TestIsHtmlElement
 	{
 		$t = $this->constructTestObject();
 		
-		$this->assertNull($t->tabindex());
+		$this->assertFalse($t->hasTabindex());
 		
 		$t->setTabindex(1);
 		$this->assertEquals(1, $t->tabindex());
+		$this->assertTrue($t->hasTabindex());
 		
 		$t->setTabindex(2);
 		$this->assertEquals(2, $t->tabindex());
 		$this->assertContains("tabindex=\"2\"", $t->render());
 		
 		$t->removeTabindex();
-		$this->assertNull($t->tabindex());
+		$this->assertFalse($t->hasTabindex());
 		$this->assertNotContains("tabindex=", $t->render());
 	}
 	
@@ -149,17 +165,18 @@ trait TestIsHtmlElement
 	{
 		$t = $this->constructTestObject();
 		
-		$this->assertNull($t->title());
+		$this->assertFalse($t->hasTitle());
 		
 		$t->setTitle("Hallo");
 		$this->assertEquals("Hallo", $t->title());
+		$this->assertTrue($t->hasTitle());
 		
 		$t->setTitle("Hey");
 		$this->assertEquals("Hey", $t->title());
 		$this->assertContains("title=\"Hey\"", $t->render());
 		
 		$t->removeTitle();
-		$this->assertNull($t->title());
+		$this->assertFalse($t->hasTitle());
 		$this->assertNotContains("title=", $t->render());
 	}
 	
@@ -167,17 +184,18 @@ trait TestIsHtmlElement
 	{
 		$t = $this->constructTestObject();
 		
-		$this->assertNull($t->language());
+		$this->assertFalse($t->hasLanguage());
 		
 		$t->setLanguage("en");
 		$this->assertEquals("en", $t->language());
+		$this->assertTrue($t->hasLanguage());
 		
 		$t->setLanguage("nl");
 		$this->assertEquals("nl", $t->language());
 		$this->assertContains("language=\"nl\"", $t->render());
 		
 		$t->removeLanguage();
-		$this->assertNull($t->language());
+		$this->assertFalse($t->hasLanguage());
 		$this->assertNotContains("language=", $t->render());
 	}
 	
@@ -185,17 +203,18 @@ trait TestIsHtmlElement
 	{
 		$t = $this->constructTestObject();
 		
-		$this->assertNull($t->textDirection());
+		$this->assertFalse($t->hasTextDirection());
 		
 		$t->setTextDirection("ltr");
 		$this->assertEquals("ltr", $t->textDirection());
+		$this->assertTrue($t->hasTextDirection());
 		
 		$t->setTextDirection("rtl");
 		$this->assertEquals("rtl", $t->textDirection());
 		$this->assertContains("dir=\"rtl\"", $t->render());
 		
 		$t->removeTextDirection();
-		$this->assertNull($t->textDirection());
+		$this->assertFalse($t->hasTextDirection());
 		$this->assertNotContains("dir=", $t->render());
 	}
 	
@@ -203,17 +222,18 @@ trait TestIsHtmlElement
 	{
 		$t = $this->constructTestObject();
 		
-		$this->assertNull($t->accesskey());
+		$this->assertFalse($t->hasAccesskey());
 		
 		$t->setAccesskey("a");
 		$this->assertEquals("a", $t->accesskey());
+		$this->assertTrue($t->hasAccesskey());
 		
 		$t->setAccesskey("b");
 		$this->assertEquals("b", $t->accesskey());
 		$this->assertContains("accesskey=\"b\"", $t->render());
 		
 		$t->removeAccesskey();
-		$this->assertNull($t->accesskey());
+		$this->assertFalse($t->hasAccesskey());
 		$this->assertNotContains("accesskey=", $t->render());
 	}
 	
@@ -221,17 +241,18 @@ trait TestIsHtmlElement
 	{
 		$t = $this->constructTestObject();
 		
-		$this->assertNull($t->javascriptEvent("click"));
+		$this->assertFalse($t->hasJavascriptEvent("click"));
 		
 		$t->setJavascriptEvent("click", "callback();");
 		$this->assertEquals("callback();", $t->javascriptEvent("click"));
+		$this->assertTrue($t->hasJavascriptEvent("click"));
 		
 		$t->setJavascriptEvent("click", "othercallback();");
 		$this->assertEquals("othercallback();", $t->javascriptEvent("click"));
 		$this->assertContains("onclick=\"othercallback();\"", $t->render());
 		
 		$t->removeJavascriptEvent("click");
-		$this->assertNull($t->javascriptEvent("click"));
+		$this->assertFalse($t->hasJavascriptEvent("click"));
 		$this->assertNotContains("onclick", $t->render());
 	}
 }

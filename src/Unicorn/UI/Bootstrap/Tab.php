@@ -63,9 +63,4 @@ class Tab extends PanelWidget implements ITab
 		$this->element()->addClass("active");
 		$this->navigationItem()->addClass("active");
 	}
-	
-	public function isActive(): bool
-	{
-		return false;
-	}
 }

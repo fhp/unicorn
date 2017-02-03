@@ -15,4 +15,9 @@ class HtmlBlob implements Widget
 	{
 		return $this->html;
 	}
+	
+	public function isActive(): bool
+	{
+		return false;
+	}
 }

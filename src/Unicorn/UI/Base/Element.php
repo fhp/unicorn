@@ -4,7 +4,8 @@ namespace Unicorn\UI\Base;
 
 interface Element extends Widget
 {
-	public function id(): ?string;
+	public function id(): string;
+	public function hasID(): bool;
 	public function setID(string $id): void;
 	public function removeID(): void;
 	

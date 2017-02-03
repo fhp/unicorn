@@ -20,4 +20,9 @@ abstract class ListWidget implements Widget
 	{
 		return $this->container()->render();
 	}
+	
+	public function isActive(): bool
+	{
+		return $this->container()->isActive();
+	}
 }

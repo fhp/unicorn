@@ -2,6 +2,8 @@
 
 namespace Unicorn\UI\Base;
 
+use Unicorn\UI\Exceptions\UnsetPropertyException;
+
 class HtmlElement extends Container implements Element
 {
 	private $tag;
@@ -40,14 +42,24 @@ class HtmlElement extends Container implements Element
 		}
 	}
 	
-	public function property(string $name): ?string
+	public function property(string $name): string
 	{
-		for($i = 0; $i < count($this->properties); $i++) {
-			if($this->properties[$i]["name"] == $name) {
-				return $this->properties[$i]["value"];
+		foreach($this->properties as $property) {
+			if($property["name"] == $name) {
+				return $property["value"];
 			}
 		}
-		return null;
+		throw new UnsetPropertyException($name);
+	}
+	
+	public function hasProperty(string $name): bool
+	{
+		foreach($this->properties as $property) {
+			if($property["name"] == $name) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public function setProperty(string $name, string $value): void
@@ -70,9 +82,14 @@ class HtmlElement extends Container implements Element
 		}
 	}
 	
-	public function id(): ?string
+	public function id(): string
 	{
 		return $this->property("id");
+	}
+	
+	public function hasID(): bool
+	{
+		return $this->hasProperty("id");
 	}
 	
 	public function setID(string $id): void
@@ -85,9 +102,14 @@ class HtmlElement extends Container implements Element
 		$this->removeProperty("id");
 	}
 	
-	public function data(string $name): ?string
+	public function data(string $name): string
 	{
 		return $this->property("data-" . $name);
+	}
+	
+	public function hasData(string $name): bool
+	{
+		return $this->hasProperty("data-" . $name);
 	}
 	
 	public function setData(string $name, string $value): void
@@ -100,9 +122,14 @@ class HtmlElement extends Container implements Element
 		$this->removeProperty("data-" . $name);
 	}
 	
-	public function role(): ?string
+	public function role(): string
 	{
 		return $this->property("role");
+	}
+	
+	public function hasRole(): bool
+	{
+		return $this->hasProperty("role");
 	}
 	
 	public function setRole(string $role): void
@@ -115,9 +142,14 @@ class HtmlElement extends Container implements Element
 		$this->removeProperty("role");
 	}
 	
-	public function aria(string $name): ?string
+	public function aria(string $name): string
 	{
 		return $this->property("aria-" . $name);
+	}
+	
+	public function hasAria(string $name): bool
+	{
+		return $this->hasProperty("aria-" . $name);
 	}
 	
 	public function setAria($name, $value): void
@@ -160,9 +192,14 @@ class HtmlElement extends Container implements Element
 		$this->setProperty("draggable", "false");
 	}
 	
-	public function tabindex(): ?int
+	public function tabindex(): int
 	{
 		return $this->property("tabindex");
+	}
+	
+	public function hasTabindex(): bool
+	{
+		return $this->hasProperty("tabindex");
 	}
 	
 	public function setTabindex(int $tabindex): void
@@ -175,9 +212,14 @@ class HtmlElement extends Container implements Element
 		$this->removeProperty("tabindex");
 	}
 	
-	public function title(): ?string
+	public function title(): string
 	{
 		return $this->property("title");
+	}
+	
+	public function hasTitle(): bool
+	{
+		return $this->hasProperty("title");
 	}
 	
 	public function setTitle(string $title): void
@@ -190,9 +232,14 @@ class HtmlElement extends Container implements Element
 		$this->removeProperty("title");
 	}
 	
-	public function language(): ?string
+	public function language(): string
 	{
 		return $this->property("language");
+	}
+	
+	public function hasLanguage(): bool
+	{
+		return $this->hasProperty("language");
 	}
 	
 	public function setLanguage(string $language): void
@@ -205,9 +252,14 @@ class HtmlElement extends Container implements Element
 		$this->removeProperty("language");
 	}
 	
-	public function textDirection(): ?string
+	public function textDirection(): string
 	{
 		return $this->property("dir");
+	}
+	
+	public function hasTextDirection(): bool
+	{
+		return $this->hasProperty("dir");
 	}
 	
 	public function setTextDirection(string $textDirection): void
@@ -220,9 +272,14 @@ class HtmlElement extends Container implements Element
 		$this->removeProperty("dir");
 	}
 	
-	public function accesskey(): ?string
+	public function accesskey(): string
 	{
 		return $this->property("accesskey");
+	}
+	
+	public function hasAccesskey(): bool
+	{
+		return $this->hasProperty("accesskey");
 	}
 	
 	public function setAccesskey(string $accesskey): void
@@ -235,9 +292,14 @@ class HtmlElement extends Container implements Element
 		$this->removeProperty("accesskey");
 	}
 	
-	public function javascriptEvent(string $event): ?string
+	public function javascriptEvent(string $event): string
 	{
 		return $this->property("on" . $event);
+	}
+	
+	public function hasJavascriptEvent(string $event): bool
+	{
+		return $this->hasProperty("on" . $event);
 	}
 	
 	public function setJavascriptEvent(string $event, string $javascript): void
@@ -284,7 +346,7 @@ class HtmlElement extends Container implements Element
 		$html = $this->renderOpenTag();
 		$html .= parent::render();
 		$html .= $this->renderCloseTag();
-		$html .= "\n";
+		$html .= "";
 		return $html;
 	}
 }

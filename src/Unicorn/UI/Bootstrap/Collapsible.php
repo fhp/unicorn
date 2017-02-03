@@ -17,7 +17,6 @@ class Collapsible implements WidgetContainer, Widget
 	
 	function __construct(string $id, string $text = null, Icon $icon = null)
 	{
-		
 		$this->button = new Button($text, $icon);
 		$this->button->setData("toggle", "collapse");
 		$this->button->setData("target", "#" . $id);
@@ -40,5 +39,10 @@ class Collapsible implements WidgetContainer, Widget
 		$html .= $this->button()->render();
 		$html .= $this->container()->render();
 		return $html;
+	}
+	
+	public function isActive(): bool
+	{
+		return $this->container()->isActive() || $this->button()->isActive();
 	}
 }

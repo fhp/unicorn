@@ -35,6 +35,8 @@ class Breadcrumbs extends ElementWidget
 	
 	private function build(): void
 	{
+		$this->element()->removeChildren();
+		
 		foreach($this->pages as $page) {
 			$link = new Link($page["url"]);
 			$link->addText($page["name"]);

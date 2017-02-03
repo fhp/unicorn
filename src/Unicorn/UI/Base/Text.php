@@ -15,4 +15,9 @@ class Text implements Widget
 	{
 		return htmlentities($this->text);
 	}
+	
+	public function isActive(): bool
+	{
+		return false;
+	}
 }

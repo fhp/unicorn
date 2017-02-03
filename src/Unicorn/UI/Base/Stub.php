@@ -35,4 +35,13 @@ class Stub implements Widget
 			return "";
 		}
 	}
+	
+	function isActive(): bool
+	{
+		if($this->hasWidget()) {
+			return $this->widget()->isActive();
+		} else {
+			return false;
+		}
+	}
 }

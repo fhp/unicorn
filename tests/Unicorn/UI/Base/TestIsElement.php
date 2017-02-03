@@ -12,12 +12,12 @@ trait TestIsElement
 	public function testID()
 	{
 		$t = $this->constructTestObject();
-		$this->assertNull($t->id());
 		$t->setID("henk");
 		$this->assertEquals("henk", $t->id());
 		$this->assertContains("id=\"henk\"", $t->render());
+		$this->assertTrue($t->hasID());
 		$t->removeID();
-		$this->assertNull($t->id());
+		$this->assertFalse($t->hasID());
 		$this->assertNotContains("id=", $t->render());
 	}
 	

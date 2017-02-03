@@ -37,15 +37,26 @@ trait ElementWrapper
 		return $this->element;
 	}
 	
-	public function id(): ?string
+	protected function hasElement(): bool
+	{
+		return $this->element !== null;
+	}
+	
+	public function id(): string
 	{
 		return $this->element()->id();
+	}
+	
+	public function hasID(): bool
+	{
+		return $this->element()->hasID();
 	}
 	
 	public function setID(string $id): void
 	{
 		$this->element()->setID($id);
 	}
+	
 	public function removeID(): void
 	{
 		$this->element()->removeID();
@@ -69,5 +80,10 @@ trait ElementWrapper
 	public function render(): string
 	{
 		return $this->element()->render();
+	}
+	
+	public function isActive(): bool
+	{
+		return $this->element()->isActive();
 	}
 }

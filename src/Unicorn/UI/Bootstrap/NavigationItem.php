@@ -25,7 +25,7 @@ class NavigationItem extends PanelWidget
 		return new static($link);
 	}
 	
-	public function active(): void
+	public function activate(): void
 	{
 		$this->addClass("active");
 	}

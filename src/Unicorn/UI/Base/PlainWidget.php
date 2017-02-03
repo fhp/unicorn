@@ -29,4 +29,9 @@ abstract class PlainWidget implements Widget
 	{
 		return $this->element()->render();
 	}
+	
+	public function isActive(): bool
+	{
+		return $this->element()->isActive();
+	}
 }

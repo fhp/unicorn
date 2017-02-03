@@ -35,15 +35,28 @@ class Container implements WidgetContainer, Widget
 	public function render(): string
 	{
 		$html = "";
-		if(count($this->children) > 1) {
-			$html .= "\n";
-		}
+		$newLines = count($this->children) > 1;
 		foreach($this->children as $child) {
 			$html .= $child->render();
+			if($newLines && substr($html, -1) != "\n") {
+				$html .= "\n";
+			}
 		}
-		if(count($this->children) > 1) {
-			$html .= "\n";
+		$newLines = strpos($html, "\n") !== false;
+		$html = str_replace("\n", "\n\t", trim($html));
+		if($newLines) {
+			$html = "\n\t" . $html . "\n";
 		}
+		
 		return $html;
+	}
+	
+	public function isActive(): bool
+	{
+		$active = false;
+		foreach($this->children as $child) {
+			$active |= $child->isActive();
+		}
+		return $active;
 	}
 }
