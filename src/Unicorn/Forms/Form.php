@@ -5,6 +5,8 @@ namespace Unicorn\Forms;
 use Unicorn\Forms\Conditions\FormCondition;
 use Unicorn\UI\Base\ElementWidget;
 use Unicorn\UI\Base\HtmlElement;
+use Unicorn\UI\Base\Stub;
+use Unicorn\UI\Exceptions\NoElementSetException;
 
 abstract class Form extends ElementWidget
 {
@@ -17,7 +19,13 @@ abstract class Form extends ElementWidget
 	private $errors = false;
 	
 	/** @var FormCondition[] */
-	private $conditions;
+	private $conditions = array();
+	
+	/** @var SubmitButton */
+	private $submitButton;
+	
+	/** @var Stub */
+	private $submitButtonWrapper;
 	
 	abstract public function checkAccess(): bool;
 	abstract public function form(): void;
@@ -147,11 +155,44 @@ abstract class Form extends ElementWidget
 	
 	protected function addInput(FormInput $input): void
 	{
-		$this->ensureElementSet();
-		
 		$input->setForm($this);
 		
+		$this->ensureElementSet();
 		$this->element()->addChild($input);
+	}
+	
+	protected function setSubmitButton(SubmitButton $button): void
+	{
+		$button->setForm($this);
+		
+		$this->submitButton = $button;
+		if($this->submitButtonWrapper === null) {
+			$this->submitButtonWrapper = new Stub();
+		}
+		$this->submitButtonWrapper->setWidget($this->submitButton);
+		
+		$this->ensureElementSet();
+		$this->element()->addChild($this->submitButtonWrapper);
+	}
+	
+	public function noSubmitButton(): void
+	{
+		if($this->submitButtonWrapper !== null) {
+			$this->submitButtonWrapper->unsetWidget();
+		}
+	}
+	
+	public function hasSubmitButton(): bool
+	{
+		return $this->submitButton !== null;
+	}
+	
+	public function submitButton(): SubmitButton
+	{
+		if(!$this->hasSubmitButton()) {
+			throw new NoElementSetException("No submitbutton set");
+		}
+		return $this->submitButton;
 	}
 	
 	public function isActive(): bool

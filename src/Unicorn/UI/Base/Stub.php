@@ -19,6 +19,11 @@ class Stub implements Widget
 		return $this->widget !== null;
 	}
 	
+	public function unsetWidget(): void
+	{
+		$this->widget = null;
+	}
+	
 	public function widget(): Widget
 	{
 		if($this->widget === null) {

@@ -31,7 +31,7 @@ class TestForm extends CsrfProtectedForm
 		
 		$this->ensure(new InputDiffer($this->appel, $this->peer, "Appels niet met peren vergelijken."));
 		
-		$this->addInput(new SubmitButton("submit", "Verstuur"));
+		$this->setSubmitButton(new SubmitButton("submit", "Verstuur"));
 	}
 	
 	public function handle(): void

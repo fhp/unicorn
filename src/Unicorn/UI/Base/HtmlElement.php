@@ -42,6 +42,11 @@ class HtmlElement extends Container implements Element
 		}
 	}
 	
+	public function removeClasses(): void
+	{
+		$this->classes = array();
+	}
+	
 	public function property(string $name): string
 	{
 		foreach($this->properties as $property) {

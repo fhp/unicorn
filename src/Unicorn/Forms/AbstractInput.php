@@ -85,9 +85,22 @@ abstract class AbstractInput extends ElementWidget implements FormInput
 		return $this->label !== null;
 	}
 	
-	public function setValue(string $value)
+	public function setValue(string $value): void
 	{
 		$this->input()->setProperty("value", $value);
+	}
+	
+	public function hasValue(): bool
+	{
+		return $this->input()->hasProperty("value");
+	}
+	
+	public function presetValue(): string
+	{
+		if(!$this->hasValue()) {
+			throw new UnsetPropertyException("value");
+		}
+		return $this->input()->property("value");
 	}
 	
 	public function setDefaultValue(string $value)
