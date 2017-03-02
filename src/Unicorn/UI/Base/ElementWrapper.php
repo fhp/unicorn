@@ -77,11 +77,6 @@ trait ElementWrapper
 		$this->element()->removeClass($class);
 	}
 	
-	public function render(): string
-	{
-		return $this->element()->render();
-	}
-	
 	public function isActive(): bool
 	{
 		return $this->element()->isActive();

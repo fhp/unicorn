@@ -13,4 +13,9 @@ abstract class ElementWidget implements Element
 	{
 		$this->setElement($element);
 	}
+	
+	public function render(): string
+	{
+		return $this->element()->render();
+	}
 }

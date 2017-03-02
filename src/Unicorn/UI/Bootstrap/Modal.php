@@ -2,7 +2,8 @@
 
 namespace Unicorn\UI\Bootstrap;
 
-use Unicorn\UI\Base\ElementWidget;
+use Unicorn\UI\Base\Container;
+use Unicorn\UI\Base\ElementWrapper;
 use Unicorn\UI\Base\HtmlBlob;
 use Unicorn\UI\Base\HtmlElement;
 use Unicorn\UI\Base\Stub;
@@ -11,8 +12,10 @@ use Unicorn\UI\Base\WidgetContainer;
 use Unicorn\UI\HTML\Header;
 use Unicorn\UI\HTML\JavascriptCode;
 
-class Modal extends ElementWidget implements WidgetContainer
+class Modal extends Container implements WidgetContainer
 {
+	use ElementWrapper;
+	
 	/** @var Stub */
 	private $header;
 	
@@ -27,7 +30,9 @@ class Modal extends ElementWidget implements WidgetContainer
 	
 	public function __construct(string $id)
 	{
-		parent::__construct("div");
+		$this->setElement("div");
+		$this->addChild($this->element());
+		
 		$this->setID($id);
 		
 		$this->addClass("modal");
@@ -59,6 +64,16 @@ class Modal extends ElementWidget implements WidgetContainer
 	{
 		return new ModalButton($this, $text, $icon, $style);
 	}
+	
+	public function includeToggleButton($text = null, Icon $icon = null, ContextualStyle $style = null): ModalButton
+	{
+		$button = new ModalButton($this, $text, $icon, $style);
+		
+		$this->addChild($button);
+		
+		return $button;
+	}
+	
 	
 	public function header(): HtmlElement
 	{
