@@ -7,6 +7,7 @@ use Unicorn\UI\Base\ContainerWrapper;
 use Unicorn\UI\Base\ElementWidget;
 use Unicorn\UI\Base\HtmlElement;
 use Unicorn\UI\Base\Stub;
+use Unicorn\UI\Base\Widget;
 use Unicorn\UI\Exceptions\NoElementSetException;
 
 abstract class Form extends ElementWidget
@@ -30,16 +31,18 @@ abstract class Form extends ElementWidget
 	/** @var Stub */
 	private $submitButtonWrapper;
 	
+	/** @var Stub */
+	private $titleWrapper;
+	
 	abstract public function checkAccess(): bool;
+	abstract public function title(): string;
 	abstract public function form(): void;
 	abstract public function handle(): void;
 	
 	public function __construct($id, $action, $method = "post", $encoding = "multipart/form-data", $charset = "UTF-8")
 	{
 		parent::__construct(null);
-		
 		$this->ensureElementSet();
-		$this->setElement($this->element());
 		
 		$form = $this->element();
 		$form->setID($id);
@@ -54,6 +57,7 @@ abstract class Form extends ElementWidget
 		$this->magicField = new HiddenInput($this->magicFieldName, $this->id());
 		$this->addInput($this->magicField);
 		
+		$this->setTitle();
 		$this->form();
 		
 		$this->process();
@@ -65,6 +69,7 @@ abstract class Form extends ElementWidget
 			return;
 		}
 		$this->setElement(new HtmlElement("form"));
+		$this->setContainer($this->element());
 	}
 	
 	private function process()
@@ -156,6 +161,29 @@ abstract class Form extends ElementWidget
 	protected function isGet(): bool
 	{
 		return $this->method() == "get";
+	}
+	
+	protected function setTitle(Widget $titleWidget = null): void
+	{
+		if($titleWidget === null) {
+			$titleWidget = new HtmlElement("legend");
+			$titleWidget->addText($this->title());
+		}
+		
+		if($this->titleWrapper === null) {
+			$this->titleWrapper = new Stub();
+		}
+		$this->titleWrapper->setWidget($titleWidget);
+	}
+	
+	public function noTitle(): void
+	{
+		$this->titleWrapper->unsetWidget();
+	}
+	
+	public function hasTitle(): bool
+	{
+		return $this->titleWrapper->hasWidget();
 	}
 	
 	protected function addInput(FormInput $input): void

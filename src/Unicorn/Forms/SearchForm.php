@@ -20,6 +20,11 @@ class SearchForm extends Form
 		return true;
 	}
 	
+	public function title(): string
+	{
+		return "Zoeken";
+	}
+	
 	public function form(): void
 	{
 		$this->disableRedirect();

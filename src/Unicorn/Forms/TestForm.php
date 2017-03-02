@@ -18,6 +18,11 @@ class TestForm extends CsrfProtectedForm
 		return true;
 	}
 	
+	public function title(): string
+	{
+		return "Test form";
+	}
+	
 	public function form(): void
 	{
 		$this->appel = new TextInput("appel", "Appel");
