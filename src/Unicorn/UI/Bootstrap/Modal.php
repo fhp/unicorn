@@ -31,7 +31,7 @@ class Modal extends Container implements WidgetContainer
 	public function __construct(string $id)
 	{
 		$this->setElement("div");
-		$this->addChild($this->element());
+		parent::addChild($this->element());
 		
 		$this->setID($id);
 		
@@ -68,12 +68,9 @@ class Modal extends Container implements WidgetContainer
 	public function includeToggleButton($text = null, Icon $icon = null, ContextualStyle $style = null): ModalButton
 	{
 		$button = new ModalButton($this, $text, $icon, $style);
-		
-		$this->addChild($button);
-		
+		parent::addChild($button);
 		return $button;
 	}
-	
 	
 	public function header(): HtmlElement
 	{

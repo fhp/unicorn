@@ -3,6 +3,7 @@
 namespace Unicorn\Forms;
 
 use Unicorn\Forms\Conditions\FormCondition;
+use Unicorn\UI\Base\ContainerWrapper;
 use Unicorn\UI\Base\ElementWidget;
 use Unicorn\UI\Base\HtmlElement;
 use Unicorn\UI\Base\Stub;
@@ -10,6 +11,8 @@ use Unicorn\UI\Exceptions\NoElementSetException;
 
 abstract class Form extends ElementWidget
 {
+	use ContainerWrapper;
+	
 	protected $magicFieldName = "_activeForm";
 	private $magicField;
 	
@@ -36,6 +39,8 @@ abstract class Form extends ElementWidget
 		parent::__construct(null);
 		
 		$this->ensureElementSet();
+		$this->setElement($this->element());
+		
 		$form = $this->element();
 		$form->setID($id);
 		$form->setProperty("action", $action);
