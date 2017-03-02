@@ -4,6 +4,7 @@ namespace Unicorn\Forms;
 
 use Unicorn\Forms\Conditions\FormCondition;
 use Unicorn\UI\Base\ContainerWrapper;
+use Unicorn\UI\Base\Element;
 use Unicorn\UI\Base\ElementWidget;
 use Unicorn\UI\Base\HtmlElement;
 use Unicorn\UI\Base\Stub;
@@ -42,7 +43,6 @@ abstract class Form extends ElementWidget
 	public function __construct($id, $action, $method = "post", $encoding = "multipart/form-data", $charset = "UTF-8")
 	{
 		parent::__construct(null);
-		$this->ensureElementSet();
 		
 		$form = $this->element();
 		$form->setID($id);
@@ -63,13 +63,17 @@ abstract class Form extends ElementWidget
 		$this->process();
 	}
 	
-	private function ensureElementSet()
+	/**
+	 * @return Element|HtmlElement
+	 * @throws NoElementSetException
+	 */
+	protected function element(): Element
 	{
-		if($this->hasElement()) {
-			return;
+		if(!$this->hasElement()) {
+			$this->setElement(new HtmlElement("form"));
+			$this->setContainer($this->element());
 		}
-		$this->setElement(new HtmlElement("form"));
-		$this->setContainer($this->element());
+		return parent::element();
 	}
 	
 	private function process()
@@ -172,6 +176,7 @@ abstract class Form extends ElementWidget
 		
 		if($this->titleWrapper === null) {
 			$this->titleWrapper = new Stub();
+			$this->element()->addChild($this->titleWrapper);
 		}
 		$this->titleWrapper->setWidget($titleWidget);
 	}
@@ -189,8 +194,6 @@ abstract class Form extends ElementWidget
 	protected function addInput(FormInput $input): void
 	{
 		$input->setForm($this);
-		
-		$this->ensureElementSet();
 		$this->element()->addChild($input);
 	}
 	
@@ -203,8 +206,6 @@ abstract class Form extends ElementWidget
 			$this->submitButtonWrapper = new Stub();
 		}
 		$this->submitButtonWrapper->setWidget($this->submitButton);
-		
-		$this->ensureElementSet();
 		$this->element()->addChild($this->submitButtonWrapper);
 	}
 	

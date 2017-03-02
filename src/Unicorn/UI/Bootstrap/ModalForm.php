@@ -23,6 +23,9 @@ class ModalForm extends Modal
 		$submitButton->setProperty("type", "submit");
 		$submitButton->setProperty("form", $this->form->id());
 		
+		$this->setTitle($this->form->title());
+		$this->form->noTitle();
+		
 		$this->body()->addChild($this->form);
 		$this->footer()->addChild($submitButton);
 	}
