@@ -4,7 +4,7 @@ namespace Unicorn\UI\Bootstrap;
 
 use Unicorn\UI\Base\ElementWidget;
 
-abstract class Navigation extends ElementWidget
+class Navigation extends ElementWidget
 {
 	function __construct()
 	{

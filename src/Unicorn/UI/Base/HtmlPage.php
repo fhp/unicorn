@@ -14,10 +14,10 @@ abstract class HtmlPage implements WidgetContainer
 	
 	use ContainerWrapper {
 		ContainerWrapper::container as private;
-		ContainerWrapper::setContainer as private;
+		ContainerWrapper::setContainer as setContentPane;
 	}
 	
-	public function __construct(HtmlElement $content)
+	public function __construct(HtmlElement $content = null)
 	{
 		$this->html = new HtmlElement("html");
 		$this->head = new HtmlElement("head");
@@ -29,7 +29,9 @@ abstract class HtmlPage implements WidgetContainer
 		
 		$this->head->addChild($this->title);
 		
-		$this->setContainer($content);
+		if($content !== null) {
+			$this->setContentPane($content);
+		}
 	}
 	
 	protected function html(): HtmlElement
