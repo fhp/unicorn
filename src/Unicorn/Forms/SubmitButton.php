@@ -2,11 +2,19 @@
 
 namespace Unicorn\Forms;
 
+use Unicorn\UI\Bootstrap\ContextualStyle;
+
 class SubmitButton extends AbstractInput
 {
-	function __construct($id, $label, $name = null)
+	function __construct($id, $label, $name = null, ContextualStyle $style = null)
 	{
+		if($style === null) {
+		       $style = ContextualStyle::default();
+		}
+		
 		parent::__construct("submit", $id, $name, null);
 		$this->setValue($label);
+		$this->input()->addClass("btn");
+		$this->input()->addClass("btn-" . $style);
 	}
 }
