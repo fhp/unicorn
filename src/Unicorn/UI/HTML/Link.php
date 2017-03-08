@@ -11,4 +11,24 @@ class Link extends TextElement
 		parent::__construct("a");
 		$this->setProperty("href", $url);
 	}
+	
+	public function setTarget(string $target): void
+	{
+		$this->setProperty("target", $target);
+	}
+	
+	public function target(): string
+	{
+		return $this->property("target");
+	}
+	
+	public function hasTarget(): bool
+	{
+		return $this->hasProperty("target");
+	}
+	
+	public function openInNewPage()
+	{
+		$this->setTarget("_blank");
+	}
 }
