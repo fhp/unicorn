@@ -29,12 +29,12 @@ class SearchForm extends Form
 	{
 		$this->disableRedirect();
 		
-		$this->searchField = new TextInput("search", "Zoeken");
+		$this->searchField = new TextInput($this, "search", "Zoeken");
 		$this->addInput($this->searchField);
 		$this->ensure(new InputNotEmpty($this->searchField));
 		$this->ensure(new AddSlashes($this->searchField)); // TODO: hiervan een ander type maken. "converters" ofzo? Of in TextInput stoppen? Datumveld met unixtime als output is een goede testcase.
 		
-		$this->addInput(new SubmitButton("submit", "Zoek"));
+		$this->addInput(new SubmitButton($this, "submit", "Zoek"));
 	}
 	
 	public function handle(): void

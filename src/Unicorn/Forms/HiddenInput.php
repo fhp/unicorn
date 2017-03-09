@@ -13,11 +13,13 @@ class HiddenInput extends ElementWidget implements FormInput
 	
 	private $convertedValue = null;
 	
-	function __construct($id, $value, $name = null)
+	function __construct(Form $form, $id, $value, $name = null)
 	{
 		if($name === null) {
 			$name = $id;
 		}
+		
+		$this->form = $form;
 		
 		$input = new HtmlElement("input");
 		$input->setProperty("type", "hidden");
@@ -31,11 +33,6 @@ class HiddenInput extends ElementWidget implements FormInput
 	public function name(): string
 	{
 		return $this->element()->property("name");
-	}
-	
-	public function setForm(Form $form): void
-	{
-		$this->form = $form;
 	}
 	
 	protected function form(): Form

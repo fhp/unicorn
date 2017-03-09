@@ -6,15 +6,13 @@ use Unicorn\UI\Base\HtmlElement;
 
 class SelectInput extends MultipleChoiceInput
 {
-	function __construct(string $id, string $label = null, string $name = null)
+	function __construct(Form $form, string $id, string $label = null, string $name = null)
 	{
-		parent::__construct($id, $label, $name);
+		parent::__construct($form, new HtmlElement("select"), $id, $label, $name);
 		
-		$select = new HtmlElement("select");
-		$select->setProperty("name", $this->name());
-		$select->setID($id);
-		$select->addClass("form-control");
-		$this->setInput($select);
+		$this->input()->setProperty("name", $this->name());
+		$this->input()->setID($id);
+		$this->input()->addClass("form-control");
 	}
 	
 	protected function createInput(string $name, string $value, string $label): MultipleChoiceInputElement

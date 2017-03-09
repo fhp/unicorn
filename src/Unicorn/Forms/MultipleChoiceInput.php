@@ -13,20 +13,17 @@ abstract class MultipleChoiceInput extends AbstractInput
 	
 	public function addOption(string $value, string $label, bool $default = false)
 	{
-		$option = $this->createInput($this->name(), $value, $label, $default);
-		$option->setDefault($default);
+		$option = $this->createInput($this->name(), $value, $label);
+		$option->setDefault($default || ($this->default !== null && $value == $this->default));
 		$this->options[$value] = $option;
 		$this->input()->addChild($option);
 	}
 	
 	public function setValue(string $value): void
 	{
-		$this->default = null;
+		$this->default = $value;
 		foreach($this->options as $optionValue=>$option) {
 			$option->setDefault($optionValue == $value);
-			if($optionValue == $value) {
-				$this->default = $value;
-			}
 		}
 	}
 	

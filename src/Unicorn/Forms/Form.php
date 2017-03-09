@@ -54,7 +54,7 @@ abstract class Form extends ElementWidget
 		$form->setProperty("accept-charset", $charset);
 		$form->addClass("form-horizontal");
 		
-		$this->magicField = new HiddenInput($this->magicFieldName, $this->id());
+		$this->magicField = new HiddenInput($this, $this->magicFieldName, $this->id());
 		$this->addInput($this->magicField);
 		
 		$this->setTitle();
@@ -98,7 +98,7 @@ abstract class Form extends ElementWidget
 		}
 	}
 	
-	protected function ensure(FormCondition $condition)
+	public function ensure(FormCondition $condition)
 	{
 		$this->conditions[] = $condition;
 	}
@@ -193,14 +193,11 @@ abstract class Form extends ElementWidget
 	
 	protected function addInput(FormInput $input): void
 	{
-		$input->setForm($this);
 		$this->element()->addChild($input);
 	}
 	
 	protected function setSubmitButton(SubmitButton $button): void
 	{
-		$button->setForm($this);
-		
 		$this->submitButton = $button;
 		if($this->submitButtonWrapper === null) {
 			$this->submitButtonWrapper = new Stub();

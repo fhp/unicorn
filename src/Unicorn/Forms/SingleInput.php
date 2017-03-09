@@ -7,16 +7,13 @@ use Unicorn\UI\Exceptions\UnsetPropertyException;
 
 abstract class SingleInput extends AbstractInput
 {
-	function __construct(string $type, string $id, string $label = null, string $name = null)
+	function __construct(Form $form, string $type, string $id, string $label = null, string $name = null)
 	{
-		parent::__construct($id, $label, $name);
+		parent::__construct($form, new HtmlElement("input"), $id, $label, $name);
 		
-		$input = new HtmlElement("input");
-		$input->setProperty("type", $type);
-		$input->setProperty("name", $this->name());
-		$input->setID($id);
-		
-		$this->setInput($input);
+		$this->input()->setProperty("type", $type);
+		$this->input()->setProperty("name", $this->name());
+		$this->input()->setID($id);
 	}
 	
 	public function setValue(string $value): void

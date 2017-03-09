@@ -6,13 +6,13 @@ use Unicorn\UI\Bootstrap\ContextualStyle;
 
 class SubmitButton extends SingleInput
 {
-	function __construct($id, $label, $name = null, ContextualStyle $style = null)
+	function __construct(Form $form, $id, $label, $name = null, ContextualStyle $style = null)
 	{
 		if($style === null) {
 		       $style = ContextualStyle::default();
 		}
 		
-		parent::__construct("submit", $id, $name, null);
+		parent::__construct($form, "submit", $id, $name, null);
 		$this->setValue($label);
 		$this->input()->addClass("btn");
 		$this->input()->addClass("btn-" . $style);

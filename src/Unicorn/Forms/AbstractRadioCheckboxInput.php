@@ -9,13 +9,11 @@ class AbstractRadioCheckboxInput extends MultipleChoiceInput
 {
 	private $type;
 	
-	function __construct(string $type, string $id, string $label = null, string $name = null)
+	function __construct(Form $form, string $type, string $id, string $label = null, string $name = null)
 	{
-		parent::__construct($id, $label, $name);
+		parent::__construct($form, new Container(), $id, $label, $name);
 		
 		$this->type = $type;
-		
-		$this->setInput(new Container());
 	}
 	
 	protected function createInput(string $name, string $value, string $label = null): MultipleChoiceInputElement

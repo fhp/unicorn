@@ -10,7 +10,7 @@ abstract class CsrfProtectedForm extends Form
 	
 	public function __construct($id, $action, $method = "POST", $encoding = "multipart/form-data", $charset = "UTF-8")
 	{
-		$this->csrfField = new HiddenInput($this->csrfFieldName, "RANDOMCODE");
+		$this->csrfField = new HiddenInput($this, $this->csrfFieldName, "RANDOMCODE");
 		$this->addInput($this->csrfField);
 		$this->ensure(new InputEquals($this->csrfField, "RANDOMCODE"));
 		

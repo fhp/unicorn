@@ -4,8 +4,8 @@ namespace Unicorn\Forms;
 
 class TextInput extends SingleInput
 {
-	function __construct(string $id, string $label = null, string $name = null)
+	function __construct(Form $form, string $id, string $label = null, string $name = null)
 	{
-		parent::__construct("text", $id, $label, $name);
+		parent::__construct($form, "text", $id, $label, $name);
 	}
 }

@@ -2,12 +2,12 @@
 
 namespace Unicorn\Forms;
 
+use Unicorn\Forms\Conditions\InputNotEmpty;
 use Unicorn\UI\Base\Container;
 use Unicorn\UI\Base\ElementWidget;
 use Unicorn\UI\Base\HtmlElement;
 use Unicorn\UI\Base\Stub;
 use Unicorn\UI\Base\Widget;
-use Unicorn\UI\Exceptions\InvalidFunctionCallException;
 use Unicorn\UI\Exceptions\UnsetPropertyException;
 
 abstract class AbstractInput extends ElementWidget implements FormInput
@@ -15,30 +15,32 @@ abstract class AbstractInput extends ElementWidget implements FormInput
 	/** @var string */
 	private $label;
 	
-	/** @var Stub */
+	/** @var Widget */
 	private $input;
 	
 	/** @var Container */
 	private $errors;
 	
 	/** @var Form */
-	private $form;
+	private $form = null;
 	
 	/** @var string */
 	private $name;
 	
 	private $convertedValue = null;
 	
-	function __construct(string $id, string $label = null, string $name = null)
+	function __construct(Form $form, Widget $input, string $id, string $label = null, string $name = null)
 	{
+		$this->form = $form;
+		$this->input = $input;
 		$this->label = $label;
+		
 		$this->errors = new Container();
 		
 		if($name === null) {
 			$name = $id;
 		}
 		$this->name = $name;
-		$this->input = new Stub();
 		
 		$div = new HtmlElement("div");
 		$div->addClass("form-group");
@@ -61,6 +63,13 @@ abstract class AbstractInput extends ElementWidget implements FormInput
 		
 		$div->addChild($inputDiv);
 		
+		if($this->form->isActive()) {
+			$value = $this->value();
+			if($value !== null) {
+				$this->setValue($value);
+			}
+		}
+		
 		parent::__construct($div);
 	}
 	
@@ -69,21 +78,10 @@ abstract class AbstractInput extends ElementWidget implements FormInput
 	
 	/**
 	 * @return Container|HtmlElement|Widget
-	 * @throws \Unicorn\UI\Exceptions\NoElementSetException
 	 */
 	protected function input(): Widget
 	{
-		return $this->input->widget();
-	}
-	
-	protected function hasInput(): bool
-	{
-		return $this->input->hasWidget();
-	}
-	
-	protected function setInput(Widget $widget)
-	{
-		$this->input->setWidget($widget);
+		return $this->input;
 	}
 	
 	public function name(): string
@@ -104,22 +102,8 @@ abstract class AbstractInput extends ElementWidget implements FormInput
 		return $this->label !== null;
 	}
 	
-	public function setForm(Form $form): void
-	{
-		$this->form = $form;
-		if($form->isActive()) {
-			$value = $this->value();
-			if($value !== null) {
-				$this->setValue($value);
-			}
-		}
-	}
-	
 	protected function form(): Form
 	{
-		if($this->form === null) {
-			throw new InvalidFunctionCallException("FormInput::setForm() is not called.");
-		}
 		return $this->form;
 	}
 	
@@ -163,6 +147,13 @@ abstract class AbstractInput extends ElementWidget implements FormInput
 		}
 		return $condition;
 	}
+	
+	public function required($message = "This field is required.")
+	{
+		$this->form()->ensure(new InputNotEmpty($this, $message));
+	}
+	
+	// TODO: meer standaard checks!
 	
 	// TODO: andere properties toevoegen: http://www.w3schools.com/tags/tag_input.asp
 }
