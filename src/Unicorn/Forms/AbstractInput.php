@@ -5,6 +5,8 @@ namespace Unicorn\Forms;
 use Unicorn\UI\Base\Container;
 use Unicorn\UI\Base\ElementWidget;
 use Unicorn\UI\Base\HtmlElement;
+use Unicorn\UI\Base\Stub;
+use Unicorn\UI\Base\Widget;
 use Unicorn\UI\Exceptions\InvalidFunctionCallException;
 use Unicorn\UI\Exceptions\UnsetPropertyException;
 
@@ -13,7 +15,7 @@ abstract class AbstractInput extends ElementWidget implements FormInput
 	/** @var string */
 	private $label;
 	
-	/** @var HtmlElement */
+	/** @var Stub */
 	private $input;
 	
 	/** @var Container */
@@ -22,9 +24,12 @@ abstract class AbstractInput extends ElementWidget implements FormInput
 	/** @var Form */
 	private $form;
 	
+	/** @var string */
+	private $name;
+	
 	private $convertedValue = null;
 	
-	function __construct(string $type, string $id, string $label = null, string $name = null)
+	function __construct(string $id, string $label = null, string $name = null)
 	{
 		$this->label = $label;
 		$this->errors = new Container();
@@ -32,11 +37,8 @@ abstract class AbstractInput extends ElementWidget implements FormInput
 		if($name === null) {
 			$name = $id;
 		}
-		
-		$this->input = new HtmlElement("input");
-		$this->input->setProperty("type", $type);
-		$this->input->setID($id);
-		$this->input->setProperty("name", $name);
+		$this->name = $name;
+		$this->input = new Stub();
 		
 		$div = new HtmlElement("div");
 		$div->addClass("form-group");
@@ -62,14 +64,31 @@ abstract class AbstractInput extends ElementWidget implements FormInput
 		parent::__construct($div);
 	}
 	
-	protected function input(): HtmlElement
+	abstract public function setValue(string $value): void;
+	abstract public function hasValue(): bool;
+	
+	/**
+	 * @return Container|HtmlElement|Widget
+	 * @throws \Unicorn\UI\Exceptions\NoElementSetException
+	 */
+	protected function input(): Widget
 	{
-		return $this->input;
+		return $this->input->widget();
+	}
+	
+	protected function hasInput(): bool
+	{
+		return $this->input->hasWidget();
+	}
+	
+	protected function setInput(Widget $widget)
+	{
+		$this->input->setWidget($widget);
 	}
 	
 	public function name(): string
 	{
-		return $this->input()->property("name");
+		return $this->name;
 	}
 	
 	public function label(): string
@@ -83,31 +102,6 @@ abstract class AbstractInput extends ElementWidget implements FormInput
 	public function hasLabel(): bool
 	{
 		return $this->label !== null;
-	}
-	
-	public function setValue(string $value): void
-	{
-		$this->input()->setProperty("value", $value);
-	}
-	
-	public function hasValue(): bool
-	{
-		return $this->input()->hasProperty("value");
-	}
-	
-	public function presetValue(): string
-	{
-		if(!$this->hasValue()) {
-			throw new UnsetPropertyException("value");
-		}
-		return $this->input()->property("value");
-	}
-	
-	public function setDefaultValue(string $value)
-	{
-		if(!$this->input()->hasProperty("value")) {
-			$this->input()->setProperty("value", $value);
-		}
 	}
 	
 	public function setForm(Form $form): void
@@ -127,6 +121,13 @@ abstract class AbstractInput extends ElementWidget implements FormInput
 			throw new InvalidFunctionCallException("FormInput::setForm() is not called.");
 		}
 		return $this->form;
+	}
+	
+	public function setDefaultValue(string $value)
+	{
+		if(!$this->hasValue()) {
+			$this->setValue($value);
+		}
 	}
 	
 	public function value()

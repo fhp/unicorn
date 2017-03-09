@@ -2,10 +2,10 @@
 
 namespace Unicorn\Forms;
 
-class TextInput extends SingleInput
+class CheckboxInput extends AbstractRadioCheckboxInput
 {
 	function __construct(string $id, string $label = null, string $name = null)
 	{
-		parent::__construct("text", $id, $label, $name);
+		parent::__construct("checkbox", $id, $label, $name);
 	}
 }

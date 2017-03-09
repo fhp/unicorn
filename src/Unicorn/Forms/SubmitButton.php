@@ -4,7 +4,7 @@ namespace Unicorn\Forms;
 
 use Unicorn\UI\Bootstrap\ContextualStyle;
 
-class SubmitButton extends AbstractInput
+class SubmitButton extends SingleInput
 {
 	function __construct($id, $label, $name = null, ContextualStyle $style = null)
 	{

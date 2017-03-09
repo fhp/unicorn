@@ -2,7 +2,7 @@
 
 namespace Unicorn\Forms;
 
-class PasswordInput extends AbstractInput
+class PasswordInput extends SingleInput
 {
 	function __construct(string $id, string $label = null, string $name = null)
 	{
