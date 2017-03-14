@@ -40,18 +40,18 @@ abstract class Form extends ElementWidget
 	abstract public function form(): void;
 	abstract public function handle(): void;
 	
-	public function __construct($id, $action, $method = "post", $encoding = "multipart/form-data", $charset = "UTF-8")
+	public function __construct($id, $action)
 	{
 		parent::__construct(null);
 		
 		$form = $this->element();
 		$form->setID($id);
 		$form->setProperty("action", $action);
-		$form->setProperty("method", $method);
-		if($this->isPost()) {
-			$form->setProperty("enctype", $encoding);
-		}
-		$form->setProperty("accept-charset", $charset);
+
+		$this->setMethod("post");
+		$this->setEnctype("multipart/form-data");
+		$this->setAcceptCharset("UTF-8");
+		
 		$form->addClass("form-horizontal");
 		
 		$this->magicField = new HiddenInput($this, $this->magicFieldName, $this->id());
@@ -61,6 +61,36 @@ abstract class Form extends ElementWidget
 		$this->form();
 		
 		$this->process();
+	}
+	
+	public function method(): string
+	{
+		return $this->element()->property("method");
+	}
+	
+	public function setMethod(string $method): void
+	{
+		$this->element()->setProperty("method", strtolower($method));
+	}
+	
+	public function enctype(): string
+	{
+		return $this->element()->property("enctype");
+	}
+	
+	public function setEnctype(string $enctype): void
+	{
+		$this->element()->setProperty("enctype", $enctype);
+	}
+	
+	public function acceptCharset(): string
+	{
+		return $this->element()->property("accept-charset");
+	}
+	
+	public function setAcceptCharset(string $charset): void
+	{
+		$this->element()->setProperty("accept-charset", $charset);
 	}
 	
 	/**
@@ -130,6 +160,11 @@ abstract class Form extends ElementWidget
 		} else {
 			$target = $this->redirectPage;
 		}
+		$this->doRedirect($target);
+	}
+	
+	protected function doRedirect($target)
+	{
 		header("location: $target");
 		die();
 	}
@@ -150,11 +185,6 @@ abstract class Form extends ElementWidget
 			return "";
 		}
 		return parent::render();
-	}
-	
-	protected function method(): string
-	{
-		return strtolower($this->element()->property("method"));
 	}
 	
 	protected function isPost(): bool
