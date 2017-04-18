@@ -3,6 +3,7 @@
 namespace Unicorn\Forms;
 
 use Unicorn\Forms\Conditions\InputNotEmpty;
+use Unicorn\Forms\Conditions\InputNotEmptyIfOtherFieldMatchesCondition;
 use Unicorn\UI\Base\Container;
 use Unicorn\UI\Base\ElementWidget;
 use Unicorn\UI\Base\HtmlElement;
