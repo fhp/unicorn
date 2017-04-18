@@ -9,7 +9,7 @@ class InputDiffer extends DualInputCondition
 		return $valueA != $valueB;
 	}
 	
-	function defaultMessage(): ?string
+	function defaultMessage()
 	{
 		return "The values should differ.";
 	}

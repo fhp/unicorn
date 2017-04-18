@@ -19,7 +19,7 @@ class InputEquals extends SingleInputCondition
 		return $value == $this->value;
 	}
 	
-	function defaultMessage(): ?string
+	function defaultMessage()
 	{
 		return null;
 	}

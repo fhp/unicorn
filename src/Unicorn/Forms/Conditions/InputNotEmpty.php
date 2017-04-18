@@ -9,7 +9,7 @@ class InputNotEmpty extends SingleInputCondition
 		return $value !== null && $value != "";
 	}
 	
-	function defaultMessage(): ?string
+	function defaultMessage()
 	{
 		return "This field is required.";
 	}

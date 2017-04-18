@@ -153,6 +153,11 @@ abstract class AbstractInput extends ElementWidget implements FormInput
 		$this->form()->ensure(new InputNotEmpty($this, $message));
 	}
 	
+	public function requiredIf(FormInput $otherInput, $otherValue, $message = "This field is required.")
+	{
+		$this->form()->ensure(new InputNotEmptyIfOtherFieldMatchesCondition($this, $otherInput, function($value) use($otherValue) { return $value == $otherValue; }, $message));
+	}
+	
 	// TODO: meer standaard checks!
 	
 	// TODO: andere properties toevoegen: http://www.w3schools.com/tags/tag_input.asp

@@ -27,5 +27,9 @@ abstract class SingleInputCondition implements FormCondition
 	}
 	
 	abstract function condition($value): bool;
-	abstract function defaultMessage(): ?string;
+	
+	/**
+	 * @return null|string Return a default message, or null if no default message is available.
+	 */
+	abstract function defaultMessage();
 }

@@ -40,5 +40,9 @@ abstract class DualInputCondition implements FormCondition
 	}
 	
 	abstract function condition($valueA, $valueB): bool;
-	abstract function defaultMessage(): ?string;
+	
+	/**
+	 * @return null|string Return a default message, or null if no default message is available.
+	 */
+	abstract function defaultMessage();
 }
