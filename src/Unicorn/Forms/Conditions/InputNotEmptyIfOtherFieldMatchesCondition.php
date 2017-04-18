@@ -16,7 +16,7 @@ class InputNotEmptyIfOtherFieldMatchesCondition extends DualInputCondition
 	
 	function condition($valueA, $valueB): bool
 	{
-		if($this->otherFieldCondition($valueB)) {
+		if(call_user_func($this->otherFieldCondition, $valueB)) {
 			return $valueA !== null && $valueA != "";
 		}
 		return true;
