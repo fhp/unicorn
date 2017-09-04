@@ -2,26 +2,24 @@
 
 namespace Unicorn\UI\HTML;
 
-class TableHeader extends TablePart
+use Unicorn\UI\HTML\Attributes\Abbr;
+use Unicorn\UI\HTML\Attributes\Colspan;
+use Unicorn\UI\HTML\Attributes\Headers;
+use Unicorn\UI\HTML\Attributes\Rowspan;
+use Unicorn\UI\HTML\Attributes\Scope;
+use Unicorn\UI\HTML\Attributes\Sorted;
+
+class TableHeader extends TableCell
 {
-	function __construct()
-	{
-		parent::__construct("thead");
-	}
+	use Abbr;
+	use Colspan;
+	use Rowspan;
+	use Headers;
+	use Scope;
+	use Sorted;
 	
-	public function fromArray(iterable $data)
+	function __construct(string $text = null)
 	{
-		$this->addRow(TableRow::headerFromArray($data));
-	}
-	
-	public function addColumn(string $header): void
-	{
-		$cell = new TableHead();
-		$cell->addtext($header);
-		
-		if(!isset($this->rows[0])) {
-			$this->addRow(new TableRow());
-		}
-		$this->rows[0]->addCell($cell);
+		parent::__construct("th", $text);
 	}
 }

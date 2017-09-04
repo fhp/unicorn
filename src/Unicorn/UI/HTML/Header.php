@@ -2,9 +2,7 @@
 
 namespace Unicorn\UI\HTML;
 
-use Unicorn\UI\Base\HtmlElement;
-
-class Header extends HtmlElement
+class Header extends TextElement
 {
 	function __construct($header, $size = "h2", $subtext = null)
 	{
@@ -12,14 +10,11 @@ class Header extends HtmlElement
 			throw new \InvalidArgumentException("Invalid size given, use h1-h6");
 		}
 		
-		parent::__construct($size);
-		$this->addText($header);
+		parent::__construct($size, $header);
 		
 		if($subtext !== null) {
 			$this->addText(" ");
-			$sub = new HtmlElement("small");
-			$sub->addText($subtext);
-			$this->addChild($sub);
+			$this->addChild(new Small($subtext));
 		}
 	}
 }

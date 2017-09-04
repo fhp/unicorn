@@ -16,8 +16,7 @@ class TableFooter extends TablePart
 	
 	public function addColumn(string $header): void
 	{
-		$cell = new TableHead();
-		$cell->addtext($header);
+		$cell = new TableHeader($header);
 		
 		if(!isset($this->rows[0])) {
 			$this->addRow(new TableRow());

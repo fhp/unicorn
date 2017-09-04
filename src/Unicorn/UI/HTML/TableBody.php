@@ -30,7 +30,7 @@ class TableBody extends TablePart
 			if($element instanceof Widget) {
 				$cell->addChild($element);
 			} else if(is_string($element)) {
-				$cell->addtext($element);
+				$cell->addText($element);
 			} else {
 				throw new \InvalidArgumentException("Invalid array passed to TableBody::addColumn(). The array can contain only strings and Widget elements");
 			}

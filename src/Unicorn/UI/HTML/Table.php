@@ -2,14 +2,17 @@
 
 namespace Unicorn\UI\HTML;
 
-use Unicorn\UI\Base\ElementWidget;
+use Unicorn\UI\Base\HtmlElementWidget;
 use Unicorn\UI\Base\Stub;
+use Unicorn\UI\HTML\Attributes\Sortable;
 
-class Table extends ElementWidget
+class Table extends HtmlElementWidget
 {
 	private $thead;
 	private $tbody;
 	private $tfoot;
+	
+	use Sortable;
 	
 	function __construct()
 	{
@@ -19,15 +22,15 @@ class Table extends ElementWidget
 		$this->tbody = new Stub();
 		$this->tfoot = new Stub();
 		
-		$this->element()->addChild($this->thead);
-		$this->element()->addChild($this->tbody);
-		$this->element()->addChild($this->tfoot);
+		$this->container()->addChild($this->thead);
+		$this->container()->addChild($this->tbody);
+		$this->container()->addChild($this->tfoot);
 	}
 	
-	public function header(): TableHeader
+	public function header(): TableHead
 	{
 		if(!$this->thead->hasWidget()) {
-			$this->thead->setWidget(new TableHeader());
+			$this->thead->setWidget(new TableHead());
 		}
 		
 		return $this->thead->widget();

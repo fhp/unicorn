@@ -2,10 +2,9 @@
 
 namespace Unicorn\UI\HTML;
 
-use Unicorn\UI\Base\ElementWidget;
-use Unicorn\UI\Bootstrap\ContextualStyle;
+use Unicorn\UI\Base\HtmlElementWidget;
 
-class TableRow extends ElementWidget
+class TableRow extends HtmlElementWidget
 {
 	function __construct()
 	{
@@ -14,12 +13,7 @@ class TableRow extends ElementWidget
 	
 	public function addCell(TableCell $cell): void
 	{
-		$this->element()->addChild($cell);
-	}
-	
-	public function setStyle(ContextualStyle $style): void
-	{
-		$this->element()->addClass($style);
+		$this->container()->addChild($cell);
 	}
 	
 	static public function headerFromArray(iterable $data): TableRow
@@ -27,7 +21,7 @@ class TableRow extends ElementWidget
 		$row = new static();
 		
 		foreach($data as $element) {
-			$row->addCell(self::setDataFromArrayElement(new TableHead(), $element));
+			$row->addCell(self::setDataFromArrayElement(new TableHeader(), $element));
 		}
 		
 		return $row;

@@ -2,8 +2,8 @@
 
 namespace Unicorn\UI\Base;
 
-use Unicorn\UI\HTML\JavascriptSource;
-use Unicorn\UI\HTML\StylesheetSource;
+use Unicorn\UI\Util\JavascriptSource;
+use Unicorn\UI\Util\StylesheetSource;
 
 abstract class HtmlPage implements WidgetContainer
 {

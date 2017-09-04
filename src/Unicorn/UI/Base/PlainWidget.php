@@ -6,21 +6,18 @@ abstract class PlainWidget implements Widget
 {
 	private $element;
 	
-	/**
-	 * @param Element|string|null $element An Element object, or a tag name in which case a HtmlElement will be instantiated.
-	 */
 	function __construct($element)
 	{
-		if($element instanceof HtmlElement) {
+		if($element instanceof Element) {
 			$this->element = $element;
 		} else if(is_string($element)) {
 			$this->element = new HtmlElement($element);
 		} else {
-			throw new \InvalidArgumentException("Argument must be an instance of HtmlElement or a string representing an html tag.");
+			throw new \InvalidArgumentException("Invalid argument \$element to ElementWidget. Must be an instance of Element or a string (html tag name).");
 		}
 	}
 	
-	protected function element(): HtmlElement
+	protected function element(): Widget
 	{
 		return $this->element;
 	}
