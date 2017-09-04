@@ -4,10 +4,11 @@ namespace Unicorn\UI\Bootstrap;
 
 use Unicorn\UI\Base\HtmlElement;
 use Unicorn\UI\Base\ListWidget;
+use Unicorn\UI\HTML\Span;
 
 abstract class Icon extends ListWidget
 {
-	/** @var HtmlElement */
+	/** @var Span */
 	private $icon;
 	
 	/** @var HtmlElement */
@@ -17,7 +18,7 @@ abstract class Icon extends ListWidget
 	{
 		parent::__construct();
 		
-		$this->icon = new HtmlElement("span");
+		$this->icon = new Span();
 		$this->icon->addClass("glyphicon");
 		$this->icon->addClass("glyphicon-" . $this->icon());
 		$this->icon->setAria("hidden", "true");
@@ -37,14 +38,17 @@ abstract class Icon extends ListWidget
 	
 	abstract protected function icon(): string;
 	
-	protected function color(): ?string
+	/**
+	 * @return null|string Return the color, or null to not specify a color.
+	 */
+	protected function color()
 	{
 		return null;
 	}
 	
 	public function setColor(string $color): void
 	{
-		$this->icon->setProperty("style", "color: $color;");
+		$this->icon->addStyle("color: $color;");
 	}
 	
 	public function setAriaMeaning(string $meaning)

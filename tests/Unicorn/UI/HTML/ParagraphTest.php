@@ -4,6 +4,7 @@ namespace Unicorn\UI\HTML;
 
 use PHPUnit\Framework\TestCase;
 use Unicorn\UI\Base\TestIsHtmlElement;
+use Unicorn\UI\Bootstrap\Paragraph;
 
 class ParagraphTest extends TestCase
 {

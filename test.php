@@ -51,9 +51,9 @@ use Unicorn\UI\Bootstrap\Table;
 use Unicorn\UI\Bootstrap\Tabs;
 use Unicorn\UI\HTML\Header;
 use Unicorn\UI\HTML\Image;
-use Unicorn\UI\HTML\LeadParagraph;
+use Unicorn\UI\Bootstrap\LeadParagraph;
 use Unicorn\UI\HTML\Link;
-use Unicorn\UI\HTML\Paragraph;
+use Unicorn\UI\Bootstrap\Paragraph;
 use Unicorn\UI\HTML\TableRow;
 
 class TestForm extends CsrfProtectedForm
@@ -193,12 +193,12 @@ class TestPage extends TestPageLayout
 	private function formTab()
 	{
 		$tab = new Tab("form", "Form");
-		$form = new TestForm("testForm", "test.php");
+		//$form = new TestForm("testForm", "test.php");
 		
-		$modal = new ModalForm($form);
+		//$modal = new ModalForm($form);
 		
-		$tab->addChild(new HtmlDebugger("testForm-debug", $modal));
-		$tab->addChild($modal->toggleButton("Toon form"));
+		//$tab->addChild(new HtmlDebugger("testForm-debug", $modal));
+		//$tab->addChild($modal->toggleButton("Toon form"));
 		
 		return $tab;
 	}
@@ -206,13 +206,13 @@ class TestPage extends TestPageLayout
 	private function searchTab()
 	{
 		$tab = new Tab("searchform", "Search Form");
-		$form = new SearchForm("searchForm", "test.php");
-		
-		$tab->addChild(new HtmlDebugger("searchForm-debug", $form));
-		
-		if($form->isActive() && $form->isSane()) {
-			$tab->addText("Zoekresultaten voor '" . $form->querty() . "'.");
-		}
+//		$form = new SearchForm("searchForm", "test.php");
+//
+//		$tab->addChild(new HtmlDebugger("searchForm-debug", $form));
+//
+//		if($form->isActive() && $form->isSane()) {
+//			$tab->addText("Zoekresultaten voor '" . $form->querty() . "'.");
+//		}
 		
 		return $tab;
 	}

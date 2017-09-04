@@ -6,6 +6,8 @@ use Unicorn\UI\Base\HtmlElement;
 
 abstract class TextElement extends HtmlElement
 {
+	use HasContextualStyle;
+	
 	function __construct(string $tag, string $text = null)
 	{
 		parent::__construct($tag);
@@ -13,15 +15,5 @@ abstract class TextElement extends HtmlElement
 		if($text !== null) {
 			$this->addText($text);
 		}
-	}
-	
-	public function setContextualStyle(ContextualStyle $style): void
-	{
-		$this->addClass("text-" . $style);
-	}
-	
-	public function setContextualBackgroundStyle(ContextualStyle $style): void
-	{
-		$this->addClass("bg-" . $style);
 	}
 }

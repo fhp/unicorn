@@ -8,7 +8,7 @@ use Unicorn\UI\Base\Stub;
 use Unicorn\UI\Base\Widget;
 use Unicorn\UI\HTML\Div;
 use Unicorn\UI\HTML\Link;
-use Unicorn\UI\HTML\Paragraph;
+use Unicorn\UI\Bootstrap\Paragraph;
 use Unicorn\UI\HTML\Span;
 
 class Navbar extends PanelWidget

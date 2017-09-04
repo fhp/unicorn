@@ -4,6 +4,7 @@ namespace Unicorn\UI\HTML;
 
 use PHPUnit\Framework\TestCase;
 use Unicorn\UI\Base\TestIsHtmlElement;
+use Unicorn\UI\Bootstrap\Bold;
 
 class BoldTextTest extends TestCase
 {
@@ -11,7 +12,7 @@ class BoldTextTest extends TestCase
 	
 	function constructTestObject()
 	{
-		return new BoldText("Hallo");
+		return new Bold("Hallo");
 	}
 	
 	function testIsBoldTag()

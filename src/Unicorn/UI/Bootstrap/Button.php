@@ -16,7 +16,7 @@ class Button extends HtmlElement
 		if($element == "a") {
 			$this->setRole("button");
 		} else {
-			$this->setProperty("type", "button");
+			$this->setType("button");
 		}
 		$this->addClass("btn");
 		$this->addClass("btn-" . $style);
@@ -28,5 +28,25 @@ class Button extends HtmlElement
 		if($text !== null) {
 			$this->addText($text);
 		}
+	}
+	
+	public function setType($type): void
+	{
+		$this->setProperty("type", $type);
+	}
+	
+	public function type(): string
+	{
+		return $this->property("type");
+	}
+	
+	public function hasType(): bool
+	{
+		return $this->hasProperty("type");
+	}
+	
+	public function removeType(): void
+	{
+		$this->removeProperty("type");
 	}
 }

@@ -2,6 +2,8 @@
 
 namespace Unicorn\UI\HTML;
 
+use Unicorn\UI\Bootstrap\LeadParagraph;
+
 class LeadParagraphTest extends ParagraphTest
 {
 	function constructTestObject()

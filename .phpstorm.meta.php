@@ -8,3 +8,6 @@ namespace Unicorn\UI\Bootstrap {
 namespace Unicorn\UI\HTML {
 	interface iterable extends \Iterator {}
 }
+namespace Unicorn\UI\Table {
+	interface iterable extends \Iterator {}
+}

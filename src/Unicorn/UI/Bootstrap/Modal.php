@@ -10,7 +10,7 @@ use Unicorn\UI\Base\Stub;
 use Unicorn\UI\Base\Widget;
 use Unicorn\UI\Base\WidgetContainer;
 use Unicorn\UI\HTML\Header;
-use Unicorn\UI\HTML\JavascriptCode;
+use Unicorn\UI\Util\JavascriptCode;
 
 class Modal extends Container implements WidgetContainer
 {

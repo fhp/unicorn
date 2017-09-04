@@ -5,7 +5,7 @@ namespace Unicorn\UI\Bootstrap;
 use Unicorn\UI\Base\HtmlBlob;
 use Unicorn\UI\Base\HtmlElement;
 use Unicorn\UI\Base\ElementWidget;
-use Unicorn\UI\HTML\BoldText;
+use Unicorn\UI\HTML\Bold;
 
 class Alert extends ElementWidget
 {
@@ -18,7 +18,7 @@ class Alert extends ElementWidget
 		$alert->addClass("alert-" . $style);
 		$alert->setRole("alert");
 		
-		$alert->addChild(new BoldText($header));
+		$alert->addChild(new Bold($header));
 		
 		$alert->addText(" " . $message);
 	}

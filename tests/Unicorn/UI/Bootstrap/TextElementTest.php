@@ -3,7 +3,7 @@
 namespace Unicorn\UI\Bootstrap;
 
 use PHPUnit\Framework\TestCase;
-use Unicorn\UI\HTML\Paragraph;
+use Unicorn\UI\Bootstrap\Paragraph;
 
 class TextElementTest extends TestCase
 {

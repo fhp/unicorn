@@ -5,6 +5,7 @@ namespace Unicorn\UI\HTML;
 use PHPUnit\Framework\TestCase;
 use Unicorn\UI\Base\TestHasNoChildren;
 use Unicorn\UI\Base\TestIsNoElement;
+use Unicorn\UI\Util\StylesheetSource;
 
 class StylesheetSourceTest extends TestCase
 {
