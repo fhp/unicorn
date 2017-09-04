@@ -9,11 +9,13 @@ abstract class SingleInput extends AbstractInput
 {
 	function __construct(Form $form, string $type, string $id, string $label = null, string $name = null)
 	{
-		parent::__construct($form, new HtmlElement("input"), $id, $label, $name);
+		$input = new HtmlElement("input");
+		$input->setProperty("type", $type);
+		$input->setID($id);
 		
-		$this->input()->setProperty("type", $type);
-		$this->input()->setProperty("name", $this->name());
-		$this->input()->setID($id);
+		parent::__construct($form, $input, $label, $name);
+		
+		$input->setProperty("name", $this->name());
 	}
 	
 	public function setValue(string $value): void

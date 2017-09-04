@@ -35,24 +35,38 @@ abstract class Form extends ElementWidget
 	/** @var Stub */
 	private $titleWrapper;
 	
+	/** @var FormRenderer */
+	private $renderer;
+	
+	/** @var HtmlElement */
+	private $form;
+	
 	abstract public function checkAccess(): bool;
 	abstract public function title(): string;
 	abstract public function form(): void;
 	abstract public function handle(): void;
 	
-	public function __construct($id, $action)
+	public function __construct(FormRenderer $renderer, $id = null, $action = "")
 	{
+		if($id === null) {
+			$id = str_replace('\\', '-', get_called_class());
+		}
 		parent::__construct(null);
 		
-		$form = $this->element();
-		$form->setID($id);
-		$form->setProperty("action", $action);
-
+		$this->renderer = $renderer;
+		
+		$this->form = new HtmlElement("form");
+		$this->form->setID($id);
+		$this->form->setProperty("action", $action);
+		
+		list($element, $container) = $this->renderer->renderForm($this->form);
+		$this->setElement($element);
+		$this->setContainer($container);
+		
 		$this->setMethod("post");
 		$this->setEnctype("multipart/form-data");
 		$this->setAcceptCharset("UTF-8");
 		
-		$form->addClass("form-horizontal");
 		
 		$this->magicField = new HiddenInput($this, $this->magicFieldName, $this->id());
 		$this->addInput($this->magicField);
@@ -63,47 +77,49 @@ abstract class Form extends ElementWidget
 		$this->process();
 	}
 	
+	public function id(): string
+	{
+		return $this->form->id();
+	}
+	
+	public function hasID(): bool
+	{
+		return $this->form->hasID();
+	}
+	
+	public function setID(string $id): void
+	{
+		$this->form->setID($id);
+	}
+	
 	public function method(): string
 	{
-		return $this->element()->property("method");
+		return $this->form->property("method");
 	}
 	
 	public function setMethod(string $method): void
 	{
-		$this->element()->setProperty("method", strtolower($method));
+		$this->form->setProperty("method", strtolower($method));
 	}
 	
 	public function enctype(): string
 	{
-		return $this->element()->property("enctype");
+		return $this->form->property("enctype");
 	}
 	
 	public function setEnctype(string $enctype): void
 	{
-		$this->element()->setProperty("enctype", $enctype);
+		$this->form->setProperty("enctype", $enctype);
 	}
 	
 	public function acceptCharset(): string
 	{
-		return $this->element()->property("accept-charset");
+		return $this->form->property("accept-charset");
 	}
 	
 	public function setAcceptCharset(string $charset): void
 	{
-		$this->element()->setProperty("accept-charset", $charset);
-	}
-	
-	/**
-	 * @return Element|HtmlElement
-	 * @throws NoElementSetException
-	 */
-	protected function element(): Element
-	{
-		if(!$this->hasElement()) {
-			$this->setElement(new HtmlElement("form"));
-			$this->setContainer($this->element());
-		}
-		return parent::element();
+		$this->form->setProperty("accept-charset", $charset);
 	}
 	
 	private function process()
@@ -206,7 +222,7 @@ abstract class Form extends ElementWidget
 		
 		if($this->titleWrapper === null) {
 			$this->titleWrapper = new Stub();
-			$this->element()->addChild($this->titleWrapper);
+			$this->container()->addChild($this->titleWrapper);
 		}
 		$this->titleWrapper->setWidget($titleWidget);
 	}
@@ -223,7 +239,7 @@ abstract class Form extends ElementWidget
 	
 	protected function addInput(FormInput $input): void
 	{
-		$this->element()->addChild($input);
+		$this->container()->addChild($input);
 	}
 	
 	protected function setSubmitButton(SubmitButton $button): void
@@ -233,7 +249,7 @@ abstract class Form extends ElementWidget
 			$this->submitButtonWrapper = new Stub();
 		}
 		$this->submitButtonWrapper->setWidget($this->submitButton);
-		$this->element()->addChild($this->submitButtonWrapper);
+		$this->container()->addChild($this->submitButtonWrapper);
 	}
 	
 	public function noSubmitButton(): void
@@ -273,5 +289,15 @@ abstract class Form extends ElementWidget
 			}
 		}
 		return null;
+	}
+	
+	public function renderInput(HtmlElement $input, Widget $errors, string $label = null)
+	{
+		return $this->renderer->renderInput($input, $errors, $label);
+	}
+	
+	public function renderSubmitButton(HtmlElement $button)
+	{
+		return $this->renderer->renderSubmitButton($button);
 	}
 }

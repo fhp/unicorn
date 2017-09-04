@@ -10,13 +10,14 @@ use Unicorn\UI\Base\HtmlElement;
 use Unicorn\UI\Base\Stub;
 use Unicorn\UI\Base\Widget;
 use Unicorn\UI\Exceptions\UnsetPropertyException;
+use Unicorn\UI\HTML\Div;
 
 abstract class AbstractInput extends ElementWidget implements FormInput
 {
 	/** @var string */
 	private $label;
 	
-	/** @var Widget */
+	/** @var HtmlElement */
 	private $input;
 	
 	/** @var Container */
@@ -30,7 +31,7 @@ abstract class AbstractInput extends ElementWidget implements FormInput
 	
 	private $convertedValue = null;
 	
-	function __construct(Form $form, Widget $input, string $id, string $label = null, string $name = null)
+	function __construct(Form $form, HtmlElement $input, string $label = null, string $name = null)
 	{
 		$this->form = $form;
 		$this->input = $input;
@@ -39,30 +40,9 @@ abstract class AbstractInput extends ElementWidget implements FormInput
 		$this->errors = new Container();
 		
 		if($name === null) {
-			$name = $id;
+			$name = $input->id();
 		}
 		$this->name = $name;
-		
-		$div = new HtmlElement("div");
-		$div->addClass("form-group");
-		
-		$inputDiv = new HtmlElement("div");
-		$inputDiv->addClass("col-sm-10");
-		$inputDiv->addChild($this->input);
-		$inputDiv->addChild($this->errors);
-		
-		if($label !== null) {
-			$labelElement = new HtmlElement("label");
-			$labelElement->setProperty("for", $id);
-			$labelElement->addClass("col-sm-2");
-			$labelElement->addClass("control-label");
-			$labelElement->addText($label);
-			$div->addChild($labelElement);
-		} else {
-			$inputDiv->addClass("col-sm-offset-2");
-		}
-		
-		$div->addChild($inputDiv);
 		
 		if($this->form->isActive()) {
 			$value = $this->value();
@@ -71,7 +51,9 @@ abstract class AbstractInput extends ElementWidget implements FormInput
 			}
 		}
 		
-		parent::__construct($div);
+		$renderedInput = $this->form->renderInput($this->input, $this->errors, $this->label);
+		
+		parent::__construct($renderedInput);
 	}
 	
 	abstract public function setValue(string $value): void;
@@ -132,10 +114,9 @@ abstract class AbstractInput extends ElementWidget implements FormInput
 	{
 		$this->form()->setError();
 		
-		$this->element()->addClass("has-error");
+		$this->input->addClass("is-invalid");
 		if($message !== null) {
-			$helpBlock = new HtmlElement("span");
-			$helpBlock->addClass("help-block");
+			$helpBlock = new Div("invalid-feedback");
 			$helpBlock->addText($message);
 			$this->errors->addChild($helpBlock);
 		}
