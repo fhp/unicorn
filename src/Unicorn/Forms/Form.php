@@ -2,171 +2,78 @@
 
 namespace Unicorn\Forms;
 
-use Unicorn\Forms\Conditions\FormCondition;
-use Unicorn\UI\Base\ContainerWrapper;
-use Unicorn\UI\Base\Element;
-use Unicorn\UI\Base\ElementWidget;
-use Unicorn\UI\Base\HtmlElement;
-use Unicorn\UI\Base\Stub;
-use Unicorn\UI\Base\Widget;
-use Unicorn\UI\Exceptions\NoElementSetException;
-
-abstract class Form extends ElementWidget
+abstract class Form extends InputList
 {
-	use ContainerWrapper;
+	private $form;
+	private $submitText;
 	
-	protected $magicFieldName = "_activeForm";
+	private $magicFieldName = "_activeForm";
 	private $magicField;
 	
 	private $redirectPage = null;
 	
-	/** @var bool */
-	private $errors = false;
-	
-	/** @var FormCondition[] */
-	private $conditions = array();
-	
-	/** @var SubmitButton */
-	private $submitButton;
-	
-	/** @var Stub */
-	private $submitButtonWrapper;
-	
-	/** @var Stub */
-	private $titleWrapper;
-	
-	/** @var FormRenderer */
-	private $renderer;
-	
-	/** @var HtmlElement */
-	private $form;
-	
 	abstract public function checkAccess(): bool;
 	abstract public function title(): string;
-	abstract public function form(): void;
+	abstract protected function buildForm(): void;
 	abstract public function handle(): void;
 	
-	public function __construct(FormRenderer $renderer, $id = null, $action = "")
+	function __construct($id, $name = null, $submitText = "Submit", $action = "", $method = "post")
 	{
-		if($id === null) {
-			$id = str_replace('\\', '-', get_called_class());
+		if($name === null) {
+			$name = $id;
 		}
-		parent::__construct(null);
 		
-		$this->renderer = $renderer;
+		parent::__construct($this, $name);
 		
-		$this->form = new HtmlElement("form");
+		$this->form = new \Unicorn\UI\HTML\Form();
+		$this->form->setName($name);
 		$this->form->setID($id);
-		$this->form->setProperty("action", $action);
-		
-		list($element, $container) = $this->renderer->renderForm($this->form);
-		$this->setElement($element);
-		$this->setContainer($container);
-		
-		$this->setMethod("post");
-		$this->setEnctype("multipart/form-data");
-		$this->setAcceptCharset("UTF-8");
-		
+		$this->form->setAction($action);
+		$this->form->setMethod($method);
+		$this->form->setEnctype("multipart/form-data");
+		$this->form->setAcceptCharset("UTF-8");
 		
 		$this->magicField = new HiddenInput($this, $this->magicFieldName, $this->id());
 		$this->addInput($this->magicField);
 		
-		$this->setTitle();
-		$this->form();
+		$this->submitText = $submitText;
+		
+		$this->buildForm();
 		
 		$this->process();
 	}
 	
-	public function id(): string
+	public function form(): Form
+	{
+		return $this;
+	}
+	
+	public function prefix(): string
+	{
+		return $this->id() . "-";
+	}
+	
+	public function id()
 	{
 		return $this->form->id();
 	}
 	
-	public function hasID(): bool
+	public function isActive(): bool
 	{
-		return $this->form->hasID();
+		return $this->magicField->value() == $this->id();
 	}
 	
-	public function setID(string $id): void
+	public function widget()
 	{
-		$this->form->setID($id);
+		return $this->form;
 	}
 	
-	public function method(): string
+	public function submitText(): string
 	{
-		return $this->form->property("method");
+		return $this->submitText;
 	}
 	
-	public function setMethod(string $method): void
-	{
-		$this->form->setProperty("method", strtolower($method));
-	}
-	
-	public function enctype(): string
-	{
-		return $this->form->property("enctype");
-	}
-	
-	public function setEnctype(string $enctype): void
-	{
-		$this->form->setProperty("enctype", $enctype);
-	}
-	
-	public function acceptCharset(): string
-	{
-		return $this->form->property("accept-charset");
-	}
-	
-	public function setAcceptCharset(string $charset): void
-	{
-		$this->form->setProperty("accept-charset", $charset);
-	}
-	
-	private function process()
-	{
-		if(!$this->checkAccess()) {
-			return;
-		}
-		if(!$this->isActive()) {
-			return;
-		}
-		
-		$this->basicChecks();
-		
-		if(!$this->isSane()) {
-			return;
-		}
-		
-		$this->handle();
-		
-		if($this->isSane()) {
-			$this->redirect();
-		}
-	}
-	
-	public function ensure(FormCondition $condition)
-	{
-		$this->conditions[] = $condition;
-	}
-	
-	private function basicChecks(): void
-	{
-		foreach($this->conditions as $condition) {
-			$condition->check();
-		}
-	}
-	
-	public function setError()
-	{
-		$this->errors = true;
-	}
-	
-	public function isSane(): bool
-	{
-		return $this->errors === false;
-	}
-	
-	protected function redirect()
+	protected function redirect(): void
 	{
 		if($this->redirectPage === false) {
 			return;
@@ -185,99 +92,39 @@ abstract class Form extends ElementWidget
 		die();
 	}
 	
-	public function disableRedirect(): void
-	{
-		$this->redirectPage = false;
-	}
-	
-	public function setRedirectTarget(string $target): void
-	{
-		$this->redirectPage = $target;
-	}
-	
-	public function render(): string
+	private function process()
 	{
 		if(!$this->checkAccess()) {
-			return "";
+			return;
 		}
-		return parent::render();
+		if(!$this->isActive()) {
+			return;
+		}
+		
+		$this->check();
+		
+		if(!$this->isSane()) {
+			return;
+		}
+		
+		$this->handle();
+		
+		if($this->isSane()) {
+			$this->redirect();
+		}
 	}
 	
 	protected function isPost(): bool
 	{
-		return $this->method() == "post";
+		return strtolower($this->form->method()) == "post";
 	}
 	
 	protected function isGet(): bool
 	{
-		return $this->method() == "get";
+		return strtolower($this->form->method()) == "get";
 	}
 	
-	protected function setTitle(Widget $titleWidget = null): void
-	{
-		if($titleWidget === null) {
-			$titleWidget = new HtmlElement("legend");
-			$titleWidget->addText($this->title());
-		}
-		
-		if($this->titleWrapper === null) {
-			$this->titleWrapper = new Stub();
-			$this->container()->addChild($this->titleWrapper);
-		}
-		$this->titleWrapper->setWidget($titleWidget);
-	}
-	
-	public function noTitle(): void
-	{
-		$this->titleWrapper->unsetWidget();
-	}
-	
-	public function hasTitle(): bool
-	{
-		return $this->titleWrapper->hasWidget();
-	}
-	
-	protected function addInput(FormInput $input): void
-	{
-		$this->container()->addChild($input);
-	}
-	
-	protected function setSubmitButton(SubmitButton $button): void
-	{
-		$this->submitButton = $button;
-		if($this->submitButtonWrapper === null) {
-			$this->submitButtonWrapper = new Stub();
-		}
-		$this->submitButtonWrapper->setWidget($this->submitButton);
-		$this->container()->addChild($this->submitButtonWrapper);
-	}
-	
-	public function noSubmitButton(): void
-	{
-		if($this->submitButtonWrapper !== null) {
-			$this->submitButtonWrapper->unsetWidget();
-		}
-	}
-	
-	public function hasSubmitButton(): bool
-	{
-		return $this->submitButton !== null;
-	}
-	
-	public function submitButton(): SubmitButton
-	{
-		if(!$this->hasSubmitButton()) {
-			throw new NoElementSetException("No submitbutton set");
-		}
-		return $this->submitButton;
-	}
-	
-	public function isActive(): bool
-	{
-		return $this->magicField->value() == $this->id();
-	}
-	
-	public function data($name)
+	public function data(string $name)
 	{
 		if($this->isPost()) {
 			if(isset($_POST[$name])) {
@@ -289,15 +136,5 @@ abstract class Form extends ElementWidget
 			}
 		}
 		return null;
-	}
-	
-	public function renderInput(HtmlElement $input, Widget $errors, string $label = null)
-	{
-		return $this->renderer->renderInput($input, $errors, $label);
-	}
-	
-	public function renderSubmitButton(HtmlElement $button)
-	{
-		return $this->renderer->renderSubmitButton($button);
 	}
 }

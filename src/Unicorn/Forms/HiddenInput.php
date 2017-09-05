@@ -2,63 +2,28 @@
 
 namespace Unicorn\Forms;
 
-use Unicorn\UI\Base\ElementWidget;
-use Unicorn\UI\Base\HtmlElement;
-use Unicorn\UI\Exceptions\InvalidFunctionCallException;
+use Unicorn\UI\Base\Element;
+use Unicorn\UI\HTML\Input as InputTag;
 
-class HiddenInput extends ElementWidget implements FormInput
+class HiddenInput extends SingleInput
 {
-	/** @var Form */
-	private $form;
+	private $widget;
 	
-	private $convertedValue = null;
-	
-	function __construct(Form $form, $id, $value, $name = null)
+	function __construct(Input $parent, $id, $value, $name = null)
 	{
 		if($name === null) {
 			$name = $id;
 		}
+		parent::__construct($parent, $name);
 		
-		$this->form = $form;
-		
-		$input = new HtmlElement("input");
-		$input->setProperty("type", "hidden");
-		$input->setID($id);
-		$input->setProperty("name", $name);
-		$input->setProperty("value", $value);
-		
-		parent::__construct($input);
+		$this->widget = new InputTag("hidden");
+		$this->widget->setName($this->fullName());
+		$this->widget->setID($id);
+		$this->widget->setValue($value);
 	}
 	
-	public function name(): string
+	public function widget(): Element
 	{
-		return $this->element()->property("name");
-	}
-	
-	protected function form(): Form
-	{
-		if($this->form === null) {
-			throw new InvalidFunctionCallException("FormInput::setForm() is not called.");
-		}
-		return $this->form;
-	}
-	
-	
-	public function value()
-	{
-		if($this->convertedValue !== null) {
-			return $this->convertedValue;
-		}
-		return $this->form()->data($this->name());
-	}
-	
-	public function updateValue($value): void
-	{
-		$this->convertedValue = $value;
-	}
-	
-	public function error(string $message = null): void
-	{
-		$this->form()->setError();
+		return $this->widget;
 	}
 }

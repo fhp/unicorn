@@ -2,20 +2,20 @@
 
 namespace Unicorn\Forms\Conditions;
 
-use Unicorn\Forms\FormInput;
+use Unicorn\Forms\Input;
 
-abstract class DualInputCondition implements FormCondition
+abstract class DualInputCondition implements InputCondition
 {
-	/** @var FormInput */
+	/** @var Input */
 	private $inputA;
 	
-	/** @var FormInput */
+	/** @var Input */
 	private $inputB;
 	
 	/** @var string */
 	private $message;
 	
-	function __construct(FormInput $inputA, FormInput $inputB, string $message = null)
+	function __construct(Input $inputA, Input $inputB, string $message = null)
 	{
 		$this->inputA = $inputA;
 		$this->inputB = $inputB;
@@ -33,16 +33,16 @@ abstract class DualInputCondition implements FormCondition
 		}
 	}
 	
-	protected function setErrors(FormInput $inputA, FormInput $inputB, $message): void
+	protected function setErrors(Input $inputA, Input $inputB, $message): void
 	{
 		$inputA->error($message);
 		$inputB->error(null);
 	}
 	
-	abstract function condition($valueA, $valueB): bool;
+	abstract protected function condition($valueA, $valueB): bool;
 	
 	/**
 	 * @return null|string Return a default message, or null if no default message is available.
 	 */
-	abstract function defaultMessage();
+	abstract protected function defaultMessage();
 }

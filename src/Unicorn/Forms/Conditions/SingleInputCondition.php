@@ -2,14 +2,14 @@
 
 namespace Unicorn\Forms\Conditions;
 
-use Unicorn\Forms\FormInput;
+use Unicorn\Forms\Input;
 
-abstract class SingleInputCondition implements FormCondition
+abstract class SingleInputCondition implements InputCondition
 {
 	private $message;
 	private $input;
 	
-	function __construct(FormInput $input, string $message = null)
+	function __construct(Input $input, string $message = null)
 	{
 		$this->input = $input;
 		if($message === null) {

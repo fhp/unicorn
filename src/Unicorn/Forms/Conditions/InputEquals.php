@@ -2,13 +2,13 @@
 
 namespace Unicorn\Forms\Conditions;
 
-use Unicorn\Forms\FormInput;
+use Unicorn\Forms\Input;
 
 class InputEquals extends SingleInputCondition
 {
 	private $value;
 	
-	function __construct(FormInput $input, $value, $message = null)
+	function __construct(Input $input, $value, $message = null)
 	{
 		$this->value = $value;
 		parent::__construct($input, $message);

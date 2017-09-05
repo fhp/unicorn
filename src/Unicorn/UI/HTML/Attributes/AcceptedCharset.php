@@ -6,7 +6,7 @@ trait AcceptedCharset
 {
 	use AttributeTrait;
 	
-	public function AcceptCharset(): string
+	public function acceptCharset(): string
 	{
 		return $this->property("accept-charset");
 	}

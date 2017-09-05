@@ -2,7 +2,7 @@
 
 namespace Unicorn\Forms\Conditions;
 
-interface FormCondition
+interface InputCondition
 {
 	public function check(): void;
 }

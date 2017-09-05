@@ -2,7 +2,7 @@
 
 namespace Unicorn\UI\Bootstrap;
 
-use Unicorn\Forms\Form;
+use Unicorn\FormsOud\Form;
 
 class ModalForm extends Modal
 {
@@ -19,9 +19,9 @@ class ModalForm extends Modal
 		
 		$this->form->noSubmitButton();
 		
-		$submitButton = new Button($form->submitButton()->presetValue(), null, ContextualStyle::primary());
-		$submitButton->setProperty("type", "submit");
-		$submitButton->setProperty("form", $this->form->id());
+		$submitButton = new Button("TODO", null, ContextualStyle::primary());
+		$submitButton->setType("submit");
+		$submitButton->setForm($this->form->id());
 		
 		$this->setTitle($this->form->title());
 		$this->form->noTitle();

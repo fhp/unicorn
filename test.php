@@ -1,28 +1,10 @@
 <?php
 
-function autoload($className)
-{
-	$className = ltrim($className, '\\');
-	$fileName  = "src/";
-	if ($lastNsPos = strrpos($className, '\\')) {
-		$namespace = substr($className, 0, $lastNsPos);
-		$className = substr($className, $lastNsPos + 1);
-		$fileName  .= str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
-	}
-	$fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
-	
-	/** @noinspection PhpIncludeInspection */
-	require_once($fileName);
-}
-spl_autoload_register('autoload');
+require_once "vendor/autoload.php";
+require_once "test-common.php";
 
 use Unicorn\Forms\Conditions\InputDiffer;
-use Unicorn\Forms\Conditions\InputNotEmpty;
-use Unicorn\Forms\CsrfProtectedForm;
-use Unicorn\Forms\RadioInput;
-use Unicorn\Forms\SearchForm;
-use Unicorn\Forms\SelectInput;
-use Unicorn\Forms\SubmitButton;
+use Unicorn\Forms\Form;
 use Unicorn\Forms\TextInput;
 use Unicorn\UI\Base\HtmlElement;
 use Unicorn\UI\Bootstrap\Alert;
@@ -56,7 +38,7 @@ use Unicorn\UI\HTML\Link;
 use Unicorn\UI\Bootstrap\Paragraph;
 use Unicorn\UI\HTML\TableRow;
 
-class TestForm extends CsrfProtectedForm
+class TestForm extends Form
 {
 	/** @var TextInput */
 	private $appel;
@@ -79,6 +61,15 @@ class TestForm extends CsrfProtectedForm
 	
 	public function form(): void
 	{
+	}
+	
+	public function handle(): void
+	{
+		// DB::nieuw($this->appel->value(), $this->peer->value());
+	}
+	
+	protected function buildForm(): void
+	{
 		$this->appel = new TextInput($this, "appel", "Appel");
 		$this->appel->setDefaultValue("abc");
 		$this->appel->required("Appels zijn belangrijk.");
@@ -87,72 +78,16 @@ class TestForm extends CsrfProtectedForm
 		$this->peer = new TextInput($this, "peer", "Peer");
 		$this->peer->setDefaultValue("123");
 		$this->addInput($this->peer);
-		
-		$this->radio = new RadioInput($this, "radio", "Radio element");
-		$this->radio->addOption("appel", "Appel");
-		$this->radio->addOption("peer", "Peer");
-		$this->radio->required("Maak een keuze.");
-		$this->addInput($this->radio);
+
+//		$this->radio = new RadioInput($this, "radio", "Radio element");
+//		$this->radio->addOption("appel", "Appel");
+//		$this->radio->addOption("peer", "Peer");
+//		$this->radio->required("Maak een keuze.");
+//		$this->addInput($this->radio);
 		
 		$this->ensure(new InputDiffer($this->appel, $this->peer, "Appels niet met peren vergelijken."));
 		
 		$this->setSubmitButton(new SubmitButton($this, "submit", "Verstuur"));
-	}
-	
-	public function handle(): void
-	{
-		// DB::nieuw($this->appel->value(), $this->peer->value());
-	}
-}
-
-class TestPageLayout extends BootstrapHtmlPage
-{
-	function __construct()
-	{
-		$content = new HtmlElement("div");
-		$content->addClass("container");
-		
-		parent::__construct($content);
-		
-		$navbar = new Navbar("navbar");
-		$navbar->addText("Hallo");
-		
-		$navbar->addText("Hallo Henk", true);
-		$button = new LinkButton("/logout", "logout");
-		$navbar->addButton($button, true);
-		
-		$navbar->brandLink("Test Pagina");
-		
-		$navigation = new Navigation();
-		$navigation->addClass("navbar-nav");
-		
-		$link1 = new Link("test.php");
-		$link1->addText("Appel");
-		$item = new NavigationItem($link1);
-		$item->activate();
-		$navigation->addItem($item);
-		
-		$link2 = new Link("test.php");
-		$link2->addText("Peer");
-		$navigation->addItem(new NavigationItem($link2));
-		
-		$navbar->addChild($navigation);
-		
-		$body = $this->body();
-		$body->addChild($navbar);
-		$body->addChild($content);
-		
-		$this->addStylesheet("test.css");
-	}
-	
-	protected function setTitle(string $title): void
-	{
-		parent::setTitle("Test - " . $title);
-	}
-	
-	protected function lipsum(): string
-	{
-		return file_get_contents("http://loripsum.net/api/1/plaintext");
 	}
 }
 
@@ -193,12 +128,12 @@ class TestPage extends TestPageLayout
 	private function formTab()
 	{
 		$tab = new Tab("form", "Form");
-		//$form = new TestForm("testForm", "test.php");
+		$form = new TestForm(new BootstrapFormRenderer(), "testForm", "test.php");
 		
-		//$modal = new ModalForm($form);
+		$modal = new ModalForm($form);
 		
-		//$tab->addChild(new HtmlDebugger("testForm-debug", $modal));
-		//$tab->addChild($modal->toggleButton("Toon form"));
+		$tab->addChild(new HtmlDebugger("testForm-debug", $modal));
+		$tab->addChild($modal->toggleButton("Toon form"));
 		
 		return $tab;
 	}

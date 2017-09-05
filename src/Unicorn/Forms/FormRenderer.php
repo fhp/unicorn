@@ -2,17 +2,26 @@
 
 namespace Unicorn\Forms;
 
-use Unicorn\UI\Base\HtmlElement;
 use Unicorn\UI\Base\Widget;
 
-interface FormRenderer
+abstract class FormRenderer implements Widget
 {
-	/**
-	 * @return array<Widget $element, Widget $container>
-	 */
-	public function renderForm(HtmlElement $form);
+	private $form;
 	
-	public function renderInput(HtmlElement $input, Widget $errors, string $label = null): Widget;
+	function __construct(Form $form)
+	{
+		$this->form = $form;
+	}
 	
-	public function renderSubmitButton(HtmlElement $button): Widget;
+	protected function form(): Form
+	{
+		return $this->form;
+	}
+	
+	abstract public function render(): string;
+	
+	public function isActive(): bool
+	{
+		return $this->form->isActive();
+	}
 }

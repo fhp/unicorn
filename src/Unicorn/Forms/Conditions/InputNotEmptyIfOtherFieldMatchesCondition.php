@@ -2,13 +2,13 @@
 
 namespace Unicorn\Forms\Conditions;
 
-use Unicorn\Forms\FormInput;
+use Unicorn\Forms\Input;
 
 class InputNotEmptyIfOtherFieldMatchesCondition extends DualInputCondition
 {
 	private $otherFieldCondition;
 	
-	function __construct(FormInput $inputA, FormInput $otherInput, callable $otherFieldCondition, string $message = null)
+	function __construct(Input $inputA, Input $otherInput, callable $otherFieldCondition, string $message = null)
 	{
 		$this->otherFieldCondition = $otherFieldCondition;
 		parent::__construct($inputA, $otherInput, $message);
