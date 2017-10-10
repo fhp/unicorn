@@ -1,5 +1,6 @@
 {
   "name": "treva/unicorn",
+  "license": "MIT",
   "authors": [
     {
       "name": "Stef Louwers",
@@ -18,6 +19,9 @@
   },
   "autoload-dev": {
     "psr-4": { "Unicorn\\": "tests/Unicorn/" }
+  },
+  "require": {
+    "php": ">=7.0"
   },
   "require-dev": {
     "phpunit/phpunit": "5.*"
